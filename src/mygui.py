@@ -8,7 +8,6 @@ from PyQt4 import QtCore,QtGui,uic
 import sys
 from numpy import interp
 from capture import cap
-import triscan
 from globalsh import *
 import globalsh
 import cv2
