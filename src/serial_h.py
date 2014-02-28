@@ -42,7 +42,7 @@ class serialh(serial.Serial):
         
     def connect_p(self):
         try:
-            self.ser = serial.Serial(str(self.port),baudrate=9600)
+            self.ser = serial.Serial(str(self.port),baudrate=globalsh.baudrate)
             print("port " + self.port + "  opened successfully")
         except serial.SerialException:
             print ('the requested serial port ' + str(self.port) + ' could not be opened')

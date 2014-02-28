@@ -77,6 +77,7 @@ class optWidget (QtGui.QWidget, opt_class):
         self.connect(self.uspinBox, QtCore.SIGNAL('valueChanged(int)'), self.setspinboxu)
         self.connect(self.dspinBox, QtCore.SIGNAL('valueChanged(int)'), self.setspinboxd)
         self.connect(self.comBox, QtCore.SIGNAL('currentIndexChanged(int)'), self.setcomport)
+        self.connect(self.baudBox, QtCore.SIGNAL('currentIndexChanged(int)'), self.setbaudrate)
         #self.connect(self.comBox, QtCore.SIGNAL('clicked()'), setcombox) #cross module link
         self.resoBox.activated.connect(self.set_resolution)
         self.resoBox.setCurrentIndex(1)
@@ -90,11 +91,18 @@ class optWidget (QtGui.QWidget, opt_class):
         self.scansrev_sdr.setValue(globalsh.steptotake)
         self.stepdelay_sdr.setValue(globalsh.stepdelay)
         self.comport = globalsh.comport
+        self.baudrate = globalsh.baudrate
         for i in range(len(globalsh.availble_p)):    
             self.comBox.addItem(str(globalsh.availble_p[i]))
-        self.index = self.comBox.findText(str(self.comport))
-        self.comBox.setCurrentIndex(self.index);
+        self.com_index = self.comBox.findText(str(self.comport))
+        self.comBox.setCurrentIndex(self.com_index);
+        for i in range(len(globalsh.baudlist)):    
+            self.baudBox.addItem(str(globalsh.baudlist[i]))
+        self.baud_index = self.baudBox.findText(str(self.baudrate))
+        self.baudBox.setCurrentIndex(self.baud_index);
 
+    def setbaudrate(self):
+        globalsh.baudrate = self.baudBox.currentText()
     def setcomport(self):
         globalsh.comport = self.comBox.currentText()
     def setspinboxl(self):
