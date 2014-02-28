@@ -12,7 +12,7 @@ def runprogram():
     reghandle.read_reg()
     import scan
     from serial_h import meiserial
-    from mygui import MyWidget, optWidget, form, opt, app
+    from mygui import form, opt, app
     
     form.connect(form.toolButton, QtCore.SIGNAL('clicked()'), opt.show)
     form.connect(form.stepButton, QtCore.SIGNAL('clicked()'), meiserial.onestep)

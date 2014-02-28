@@ -38,6 +38,7 @@ class MyWidget (QtGui.QWidget, form_class):
     def progress(self, value):
         self.progressBar.setValue(value)
     def refresh(self):
+        cap.open(0)
         self.camstate = self.camBox.checkState()
         camwidth = cap.get(3)
         camheight = cap.get(4)

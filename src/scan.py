@@ -26,6 +26,7 @@ def doscan():
         scn.start()
     else:
         globalsh.scan_active = False
+        #cap.release()
 
 class scanthread(threading.Thread):
     def __init__(self):

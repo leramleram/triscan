@@ -15,7 +15,6 @@ import globalsh
 class serialh(serial.Serial):
     def __init__(self):
         serial.Serial.__init__(self)
-        #self.s
         self.list_serial_ports_p()
         time.sleep(0.5)
         self.port = "COM15"
@@ -28,18 +27,12 @@ class serialh(serial.Serial):
             self.available_p = []
             for i in range(24):
                 try:
-                    
                     self.s = serial.Serial(i)
                     self.available_p.append(i+1)
-                    #setcombox(+1)
-                    #triscan.opt.comBox.addItem(str(i+1))
                     self.s.close()
                 except serial.SerialException:
                     pass
             globalsh.availble_p = self.available_p
-            
-            #print globalsh.availble_p
-            #return self.available_p
             
         elif self.system_name == "Darwin":
             # Mac
@@ -54,11 +47,6 @@ class serialh(serial.Serial):
             print("port " + self.port + "  opened successfully")
         except serial.SerialException:
             print ('the requested serial port ' + str(self.port) + ' could not be opened')
-            #dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('accepted()'), start_sim)
-            #dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('rejected()'), exit)
-            #dlg.setWindowTitle('heheheh')
-            #dlg.label_dlg.setText('Oops...  could not open the requested serial port ' + self.port + ' should we start in simulation mode?')
-            #dlg.getdlg()
             globalsh.dlg_txt = 'serial port could not be opened'
             mygui.get_dialog()
          
