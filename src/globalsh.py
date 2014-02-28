@@ -40,3 +40,12 @@ dlg_issue = 'default'
 
 global availble_p
 availble_p = []
+
+global comport
+comport = 0
+
+global autocnct
+autocnct = False
+
+global baud
+baud = 9600

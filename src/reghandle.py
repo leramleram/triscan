@@ -20,7 +20,8 @@ def read_reg():
         [r_lspinbox,regtype]=(QueryValueEx(root_key,"lspinbox"))
         [r_rspinbox,regtype]=(QueryValueEx(root_key,"rspinbox"))
         [r_uspinbox,regtype]=(QueryValueEx(root_key,"uspinbox"))
-        [r_dspinbox,regtype]=(QueryValueEx(root_key,"dspinbox"))   
+        [r_dspinbox,regtype]=(QueryValueEx(root_key,"dspinbox"))
+        [r_comport,regtype]=(QueryValueEx(root_key,"comport"))
         #[r_dspinbox,regtype]=(QueryValueEx(root_key,"dummy"))
         globalsh.stepdelay = int(r_stepdelay)
         globalsh.steptotake = int(r_steptotake)
@@ -28,10 +29,11 @@ def read_reg():
         globalsh.rspinBox = int(r_rspinbox)
         globalsh.uspinBox = int(r_uspinbox)
         globalsh.dspinBox = int(r_dspinbox)
+        globalsh.comport = int(r_comport)
         CloseKey(root_key)
     except WindowsError:
         globalsh.dlg_issue = 'reg'
-        globalsh.dlg_txt = 'oops, could not read Windows registry, perhaps first start?\nI can (re)build it with default values, do you want me to do so?'
+        globalsh.dlg_txt = 'oops, could not read Windows registry, perhaps first start? writing default values...'
                 
         
 def save_all():
@@ -50,6 +52,7 @@ def write_reg():
     SetValueEx(key, "rspinbox", 0, REG_DWORD, int(globalsh.rspinBox))
     SetValueEx(key, "uspinbox", 0, REG_DWORD, int(globalsh.uspinBox))
     SetValueEx(key, "dspinbox", 0, REG_DWORD, int(globalsh.dspinBox))
+    SetValueEx(key, "comport", 0, REG_DWORD, int(globalsh.comport))
     CloseKey(key)
     print 'keys written'
 def write_reg_default():
@@ -64,5 +67,6 @@ def write_reg_default():
     SetValueEx(key, "rspinbox", 0, REG_DWORD, int(globalsh.rspinBox))
     SetValueEx(key, "uspinbox", 0, REG_DWORD, int(globalsh.uspinBox))
     SetValueEx(key, "dspinbox", 0, REG_DWORD, int(globalsh.dspinBox))
+    SetValueEx(key, "comport", 0, REG_DWORD, int(globalsh.comport))
     CloseKey(key)
     print 'defaults written..'

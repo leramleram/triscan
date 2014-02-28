@@ -8,7 +8,6 @@ import serial
 from serial import Serial
 import time
 import glob
-import triscan
 
 import globalsh
             
@@ -17,7 +16,7 @@ class serialh(serial.Serial):
         serial.Serial.__init__(self)
         self.list_serial_ports_p()
         time.sleep(0.5)
-        self.port = "COM15"
+        self.port = ("COM" + str(globalsh.comport))
         self.connect_p()
         
     def list_serial_ports_p(self):
@@ -48,7 +47,7 @@ class serialh(serial.Serial):
         except serial.SerialException:
             print ('the requested serial port ' + str(self.port) + ' could not be opened')
             globalsh.dlg_txt = 'serial port could not be opened'
-            mygui.get_dialog()
+            #mygui.get_dialog()
          
     def step(self, n):
         for i in range(n):
@@ -78,4 +77,3 @@ class serialh(serial.Serial):
                 
 
 meiserial = serialh()
-import mygui
