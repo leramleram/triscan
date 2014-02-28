@@ -8,10 +8,10 @@ Created on Fri Feb 21 21:07:46 2014
 def runprogram():
     from PyQt4 import QtCore,QtGui,uic
     #from mygui import dlgWidget
-    import globalsh
+    #import globalsh
     import sys
     #from mygui import dlgWidget
-    
+    #import mygui
     import reghandle
     reghandle.read_reg()
     import scan
@@ -30,7 +30,7 @@ def runprogram():
     form.connect(form.turnButton, QtCore.SIGNAL('clicked()'), meiserial.turn)
     form.connect(form.scanButton, QtCore.SIGNAL('clicked()'), scan.doscan)
     form.connect(form.camBox, QtCore.SIGNAL('clicked()'), form.refresh)
-    opt.connect(opt.saveButton, QtCore.SIGNAL('clicked()'), reghandle.write_reg)
+    opt.connect(opt.saveButton, QtCore.SIGNAL('clicked()'), reghandle.save_all)
     form.show()
     form.move(20,20)
     form.progress(0)

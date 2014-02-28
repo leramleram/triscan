@@ -9,61 +9,61 @@ Created on Wed Feb 26 22:43:04 2014
 import os
 import globalsh
 from _winreg import *
-from mygui import dlg
+#from mygui import dlg
 from PyQt4 import QtCore
+#import mygui
 
 aReg = ConnectRegistry(None,HKEY_LOCAL_MACHINE)
 
 def read_reg():
     try:
         root_key=OpenKey(HKEY_CURRENT_USER, r'SOFTWARE\CHAOSCOMPANY\cfg', 0, KEY_READ)
-        [globalsh.stepdelay,regtype]=(QueryValueEx(root_key,"stepdelay"))
-        [globalsh.steptotake,regtype]=(QueryValueEx(root_key,"steptotake"))
-        [globalsh.lspinbox,regtype]=(QueryValueEx(root_key,"lspinbox"))
-        [globalsh.rspinbox,regtype]=(QueryValueEx(root_key,"rspinbox"))
-        [globalsh.uspinbox,regtype]=(QueryValueEx(root_key,"uspinbox"))
-        [globalsh.dspinbox,regtype]=(QueryValueEx(root_key,"dspinbox"))    
-        globalsh.stepdelay = int(globalsh.stepdelay)
-        globalsh.steptotake = int(globalsh.steptotake)
-        globalsh.lspinbox = int(globalsh.lspinbox)
-        globalsh.rspinbox = int(globalsh.rspinbox)
-        globalsh.uspinbox = int(globalsh.uspinbox)
-        globalsh.dspinbox = int(globalsh.dspinbox)
+        [r_stepdelay,regtype]=(QueryValueEx(root_key,"stepdelay"))
+        [r_steptotake,regtype]=(QueryValueEx(root_key,"steptotake"))
+        [r_lspinbox,regtype]=(QueryValueEx(root_key,"lspinbox"))
+        [r_rspinbox,regtype]=(QueryValueEx(root_key,"rspinbox"))
+        [r_uspinbox,regtype]=(QueryValueEx(root_key,"uspinbox"))
+        [r_dspinbox,regtype]=(QueryValueEx(root_key,"dspinbox"))   
+        #[r_dspinbox,regtype]=(QueryValueEx(root_key,"dummy"))
+        globalsh.stepdelay = int(r_stepdelay)
+        globalsh.steptotake = int(r_steptotake)
+        globalsh.lspinBox = int(r_lspinbox)
+        globalsh.rspinBox = int(r_rspinbox)
+        globalsh.uspinBox = int(r_uspinbox)
+        globalsh.dspinBox = int(r_dspinbox)
         CloseKey(root_key)
     except WindowsError:
-        print 'oops, could not read Windows registry, perhaps first start?'
-        print 'I can (re)build it with default values, do you want me to do so?'
-        dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('accepted()'), write_reg_default)
-        dlg.setWindowTitle('heheheh')
-        dlg.label_dlg.setText('Oops...  could not read Windows registry, perhaps first start?\n I can (re)build it with default values, do you want me to do so?' )
-        dlg.getdlg()
+        globalsh.dlg_txt = 'oops, could not read Windows registry, perhaps first start?\nI can (re)build it with default values, do you want me to do so?'
+        
+def save_all():
     
-        
-        
+    write_reg()
+    
 def write_reg():
     keyVal = r'SOFTWARE\CHAOSCOMPANY\cfg'
     try:
         key = OpenKey(HKEY_CURRENT_USER, keyVal, 0, KEY_ALL_ACCESS)
     except:
         key = CreateKey(HKEY_CURRENT_USER, keyVal)
-    SetValueEx(key, "stepdelay", 0, REG_SZ, str(globalsh.stepdelay))
-    SetValueEx(key, "steptotake", 0, REG_SZ, str(globalsh.steptotake))
-    SetValueEx(key, "lspinbox", 0, REG_SZ, str(globalsh.lspinBox))
-    SetValueEx(key, "rspinbox", 0, REG_SZ, str(globalsh.lspinBox))
-    SetValueEx(key, "uspinbox", 0, REG_SZ, str(globalsh.lspinBox))
-    SetValueEx(key, "dspinbox", 0, REG_SZ, str(globalsh.lspinBox))
+    SetValueEx(key, "stepdelay", 0, REG_DWORD, int(globalsh.stepdelay))
+    SetValueEx(key, "steptotake", 0, REG_DWORD, int(globalsh.steptotake))
+    SetValueEx(key, "lspinbox", 0, REG_DWORD, int(globalsh.lspinBox))
+    SetValueEx(key, "rspinbox", 0, REG_DWORD, int(globalsh.rspinBox))
+    SetValueEx(key, "uspinbox", 0, REG_DWORD, int(globalsh.uspinBox))
+    SetValueEx(key, "dspinbox", 0, REG_DWORD, int(globalsh.dspinBox))
     CloseKey(key)
+    print 'keys written'
 def write_reg_default():
     keyVal = r'SOFTWARE\CHAOSCOMPANY\cfg'
     try:
         key = OpenKey(HKEY_CURRENT_USER, keyVal, 0, KEY_ALL_ACCESS)
     except:
         key = CreateKey(HKEY_CURRENT_USER, keyVal)
-    SetValueEx(key, "stepdelay", 0, REG_SZ, str(globalsh.stepdelay))
-    SetValueEx(key, "steptotake", 0, REG_SZ, str(globalsh.steptotake))
-    SetValueEx(key, "lspinbox", 0, REG_SZ, str(globalsh.lspinBox))
-    SetValueEx(key, "rspinbox", 0, REG_SZ, str(globalsh.lspinBox))
-    SetValueEx(key, "uspinbox", 0, REG_SZ, str(globalsh.lspinBox))
-    SetValueEx(key, "dspinbox", 0, REG_SZ, str(globalsh.lspinBox))
+    SetValueEx(key, "stepdelay", 0, REG_DWORD, int(globalsh.stepdelay))
+    SetValueEx(key, "steptotake", 0, REG_DWORD, int(globalsh.steptotake))
+    SetValueEx(key, "lspinbox", 0, REG_DWORD, int(globalsh.lspinBox))
+    SetValueEx(key, "rspinbox", 0, REG_DWORD, int(globalsh.rspinBox))
+    SetValueEx(key, "uspinbox", 0, REG_DWORD, int(globalsh.uspinBox))
+    SetValueEx(key, "dspinbox", 0, REG_DWORD, int(globalsh.dspinBox))
     CloseKey(key)
     print 'defaults written..'

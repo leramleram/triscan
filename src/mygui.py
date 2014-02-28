@@ -4,14 +4,16 @@ Created on Sat Feb 22 04:14:31 2014
 
 @author: christian
 """
+import mygui
 from PyQt4 import QtCore,QtGui,uic
 import sys
-import scan
+from numpy import interp
 from capture import cap
 import triscan
 from globalsh import *
 import globalsh
 import cv2
+import reghandle
 form_class, base_class = uic.loadUiType("main.ui")
 opt_class, base_class = uic.loadUiType("opt.ui")
 dlg_class, base_class = uic.loadUiType("dlg.ui")
@@ -52,7 +54,7 @@ class MyWidget (QtGui.QWidget, form_class):
             cv2.line(feed,(opt.lspinBox.value(),0),(opt.lspinBox.value(),int(camheight)),(0,255,0),2)
             cv2.line(feed,(int(camwidth) - opt.rspinBox.value(),0),(int(camwidth) - opt.rspinBox.value(),int(camheight)),(0,255,0),2)
             cv2.line(feed,(0,opt.uspinBox.value()),(int(camwidth),opt.uspinBox.value()),(255,255,0),2)
-            cv2.line(feed,(0,int(camheight) - opt.dspinBox.value()),(int(camwidth),int(camheight) - opt.dspinBox.value()),(255,255,0),2)
+            cv2.line(feed,(0,int(camheight) - opt.dspinBox.value()),(int(camwidth),int(camheight) - opt.dspinBox.value()),(255,255,0),2)        
             cv2.imshow("webcam", feed)
             #time.sleep(0.02)
             key = cv2.waitKey(20)
@@ -71,13 +73,32 @@ class optWidget (QtGui.QWidget, opt_class):
         self.connect(self.closeButton, QtCore.SIGNAL('clicked()'), self.closeopt)
         self.connect(self.scansrev_sdr, QtCore.SIGNAL('valueChanged(int)'), self.set_scansrev)
         self.connect(self.stepdelay_sdr, QtCore.SIGNAL('valueChanged(int)'), self.set_stepdelay)
+        self.connect(self.lspinBox, QtCore.SIGNAL('valueChanged(int)'), self.setspinboxl)
+        self.connect(self.rspinBox, QtCore.SIGNAL('valueChanged(int)'), self.setspinboxr)
+        self.connect(self.uspinBox, QtCore.SIGNAL('valueChanged(int)'), self.setspinboxu)
+        self.connect(self.dspinBox, QtCore.SIGNAL('valueChanged(int)'), self.setspinboxd)
         #self.connect(self.comBox, QtCore.SIGNAL('clicked()'), setcombox) #cross module link
         self.resoBox.activated.connect(self.set_resolution)
         self.resoBox.setCurrentIndex(1)
         self.scansrev_sdr.setValue(globalsh.steptotake)
         self.steps_lbl.setText(str(globalsh.steptotake))
         self.delay_lbl.setText(str(globalsh.stepdelay))
-        self.scansrev_sdr.setTracking(True)
+        self.lspinBox.setValue(int(globalsh.lspinBox))
+        self.rspinBox.setValue(int(globalsh.rspinBox))
+        self.uspinBox.setValue(int(globalsh.uspinBox))
+        self.dspinBox.setValue(int(globalsh.dspinBox))
+        self.scansrev_sdr.setValue(globalsh.steptotake)
+        self.stepdelay_sdr.setValue(globalsh.stepdelay)
+        
+    def setspinboxl(self):
+        globalsh.lspinBox = self.lspinBox.value()
+    def setspinboxr(self):
+        globalsh.rspinBox = self.rspinBox.value()
+    def setspinboxu(self):
+        globalsh.uspinBox = self.uspinBox.value()
+    def setspinboxd(self):
+        globalsh.dspinBox = self.dspinBox.value()
+        
     def set_scansrev(self):
         globalsh.steptotake = self.scansrev_sdr.value()
         self.steps_lbl.setText(str(globalsh.steptotake))
@@ -118,7 +139,7 @@ class dlgWidget (QtGui.QDialog, dlg_class):
         #self.dialog = QtGui.QDialog(parent)
         self.setupUi(self)
     def getdlg(self,):
-        self.setWindowTitle('meidialog')
+        #self.setWindowTitle('meidialog')
         self.show()
         
     def closedlg(self):
@@ -130,4 +151,11 @@ opt = optWidget(None)
 dlg = dlgWidget(None)
 def setbar(value):
     form.progress(value)
+
+def get_dialog():
+    dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('accepted()'), reghandle.write_reg_default)
+    dlg.setWindowTitle(globalsh.dlg_title)
+    dlg.label_dlg.setText(globalsh.dlg_txt)
+    dlg.getdlg()
     
+import scan

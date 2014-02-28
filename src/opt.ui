@@ -58,7 +58,7 @@
     <enum>QTabWidget::Triangular</enum>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -406,7 +406,7 @@
         <number>10</number>
        </property>
        <property name="value">
-        <number>100</number>
+        <number>0</number>
        </property>
       </widget>
       <widget class="QSpinBox" name="rspinBox">
@@ -425,7 +425,7 @@
         <number>10</number>
        </property>
        <property name="value">
-        <number>220</number>
+        <number>0</number>
        </property>
       </widget>
       <widget class="QSpinBox" name="lspinBox">
@@ -444,7 +444,7 @@
         <number>10</number>
        </property>
        <property name="value">
-        <number>240</number>
+        <number>0</number>
        </property>
       </widget>
       <widget class="QSpinBox" name="uspinBox">
@@ -466,7 +466,7 @@
         <number>10</number>
        </property>
        <property name="value">
-        <number>110</number>
+        <number>0</number>
        </property>
       </widget>
       <widget class="QLabel" name="label_5">

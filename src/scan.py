@@ -6,9 +6,11 @@ Created on Sat Feb 22 13:14:37 2014
 """
 import threading
 import time
+import mygui
+import serial_h
 from serial_h import meiserial
 import cv2
-import mygui
+
 import math
 from numpy import interp
 from capture import cap

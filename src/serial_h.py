@@ -9,7 +9,7 @@ from serial import Serial
 import time
 import glob
 import triscan
-
+import mygui
             
 class serialh(serial.Serial):
     def __init__(self):
@@ -48,6 +48,12 @@ class serialh(serial.Serial):
             print("port " + self.port + "  opened successfully")
         except serial.SerialException:
             print ('the requested serial port ' + str(self.port) + ' could not be opened')
+            #dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('accepted()'), start_sim)
+            #dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('rejected()'), exit)
+            #dlg.setWindowTitle('heheheh')
+            #dlg.label_dlg.setText('Oops...  could not open the requested serial port ' + self.port + ' should we start in simulation mode?')
+            #dlg.getdlg()
+            mygui.get_dialog()
          
     def step(self, n):
         for i in range(n):
