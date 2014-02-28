@@ -19,9 +19,13 @@ import globalsh
 
 
 def doscan():
-    scan_active = True
-    scn = scanthread()
-    scn.start()
+    if globalsh.scan_active == False:
+        globalsh.scan_active = True
+        scn = scanthread()
+        scn.start()
+    else:
+        globalsh.scan_active = False
+        #scn._stop()
     
 def stopscan():
     scn._stop()
@@ -89,12 +93,14 @@ class scanthread(threading.Thread):
             meiserial.step(int(self.steps_rev/self.steptotake))    
             time.sleep(self.stepdelay / 1000)
             #cv2.imwrite(anafile, gray_anaimage)
-            print self.stepnr
+            #print self.stepnr
             progBarV = interp(self.stepnr,[0,self.steptotake -1],[0,100])
             mygui.setbar(progBarV)
+            if globalsh.scan_active == False:
+                break
         print 'scan done'
         self.file_ana.close()
         meiserial.laser(1,0)
-        scan_active = False
+        globalsh.scan_active = False
 
 #scn = scanthread()

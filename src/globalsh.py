@@ -5,16 +5,19 @@ Created on Tue Feb 25 19:08:26 2014
 @author: christian
 """
 
+global scan_active
+scan_active = False
+
 global cap
 global lspinBox
 global rspinBox
 global uspinBox
 global dspinBox
 
-lspinBox = 20
-rspinBox = 20
-uspinBox = 20
-dspinBox = 20
+lspinBox = 21
+rspinBox = 22
+uspinBox = 23
+dspinBox = 24
 
 global progBarV
 progBarV = 0

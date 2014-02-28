@@ -7,24 +7,12 @@ Created on Fri Feb 21 21:07:46 2014
 
 def runprogram():
     from PyQt4 import QtCore,QtGui,uic
-    #from mygui import dlgWidget
-    #import globalsh
     import sys
-    #from mygui import dlgWidget
-    #import mygui
     import reghandle
     reghandle.read_reg()
     import scan
-    #from scan import scn
-    #import cv2
     from mygui import MyWidget, optWidget, form, opt, app
-    #import math
     from serial_h import meiserial
-    #import serial_h
-    
-    global opt, form
-    #import serial_h
-    
     form.connect(form.toolButton, QtCore.SIGNAL('clicked()'), opt.show)
     form.connect(form.stepButton, QtCore.SIGNAL('clicked()'), meiserial.onestep)
     form.connect(form.turnButton, QtCore.SIGNAL('clicked()'), meiserial.turn)

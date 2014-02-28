@@ -4,7 +4,6 @@ Created on Sat Feb 22 04:14:31 2014
 
 @author: christian
 """
-import mygui
 from PyQt4 import QtCore,QtGui,uic
 import sys
 from numpy import interp
