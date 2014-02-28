@@ -10,6 +10,7 @@ import time
 import glob
 import triscan
 import mygui
+import globalsh
             
 class serialh(serial.Serial):
     def __init__(self):
@@ -53,6 +54,7 @@ class serialh(serial.Serial):
             #dlg.setWindowTitle('heheheh')
             #dlg.label_dlg.setText('Oops...  could not open the requested serial port ' + self.port + ' should we start in simulation mode?')
             #dlg.getdlg()
+            globalsh.dlg_txt = 'serial port could not be opened'
             mygui.get_dialog()
          
     def step(self, n):

@@ -152,9 +152,15 @@ def setbar(value):
     form.progress(value)
 
 def get_dialog():
-    dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('accepted()'), reghandle.write_reg_default)
+    dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('accepted()'), dlg_accept)
     dlg.setWindowTitle(globalsh.dlg_title)
     dlg.label_dlg.setText(globalsh.dlg_txt)
     dlg.getdlg()
+    
+def dlg_accept():
+    if globalsh.dlg_issue == 'serial':
+        pass
+    if globalsh.dlg_issue == 'reg':
+        reghandle.write_reg_default
     
 import scan

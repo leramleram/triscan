@@ -6,12 +6,9 @@ Created on Wed Feb 26 22:43:04 2014
 """
 
 
-import os
+#import os
 import globalsh
 from _winreg import *
-#from mygui import dlg
-from PyQt4 import QtCore
-#import mygui
 
 aReg = ConnectRegistry(None,HKEY_LOCAL_MACHINE)
 
@@ -33,7 +30,9 @@ def read_reg():
         globalsh.dspinBox = int(r_dspinbox)
         CloseKey(root_key)
     except WindowsError:
+        globalsh.dlg_issue = 'reg'
         globalsh.dlg_txt = 'oops, could not read Windows registry, perhaps first start?\nI can (re)build it with default values, do you want me to do so?'
+                
         
 def save_all():
     

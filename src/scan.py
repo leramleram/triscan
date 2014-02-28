@@ -25,10 +25,6 @@ def doscan():
         scn.start()
     else:
         globalsh.scan_active = False
-        #scn._stop()
-    
-def stopscan():
-    scn._stop()
 
 class scanthread(threading.Thread):
     def __init__(self):
@@ -102,5 +98,3 @@ class scanthread(threading.Thread):
         self.file_ana.close()
         meiserial.laser(1,0)
         globalsh.scan_active = False
-
-#scn = scanthread()

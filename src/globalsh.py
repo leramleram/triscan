@@ -34,3 +34,6 @@ global dlg_title
 global dlg_txt
 dlg_title = 'default'
 dlg_txt = 'default'
+
+global dlg_issue
+dlg_issue = 'default'
