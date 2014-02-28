@@ -8,15 +8,15 @@ import serial
 from serial import Serial
 import time
 import glob
-import triscan
-import mygui
+
 import globalsh
             
 class serialh(serial.Serial):
     def __init__(self):
         serial.Serial.__init__(self)
+        self.list_serial_ports_p()
         time.sleep(0.5)
-        self.port = "COM15"
+        self.port = ("COM" + str(globalsh.comport))
         self.connect_p()
         
     def list_serial_ports_p(self):
@@ -24,18 +24,15 @@ class serialh(serial.Serial):
         if self.system_name == "Windows":
             # Scan for available ports.
             self.available_p = []
-            for i in range(32):
+            for i in range(24):
                 try:
-                    self.s
-                    
-                    #self.s = serial.Serial(i)
+                    self.s = serial.Serial(i)
                     self.available_p.append(i+1)
-                    #setcombox(+1)
-                    #triscan.opt.comBox.addItem(str(i+1))
                     self.s.close()
                 except serial.SerialException:
                     pass
-            return self.available_p
+            globalsh.availble_p = self.available_p
+            
         elif self.system_name == "Darwin":
             # Mac
             return glob.glob('/dev/tty*') + glob.glob('/dev/cu*')
@@ -49,13 +46,8 @@ class serialh(serial.Serial):
             print("port " + self.port + "  opened successfully")
         except serial.SerialException:
             print ('the requested serial port ' + str(self.port) + ' could not be opened')
-            #dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('accepted()'), start_sim)
-            #dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('rejected()'), exit)
-            #dlg.setWindowTitle('heheheh')
-            #dlg.label_dlg.setText('Oops...  could not open the requested serial port ' + self.port + ' should we start in simulation mode?')
-            #dlg.getdlg()
             globalsh.dlg_txt = 'serial port could not be opened'
-            mygui.get_dialog()
+            #mygui.get_dialog()
          
     def step(self, n):
         for i in range(n):

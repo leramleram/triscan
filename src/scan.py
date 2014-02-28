@@ -6,8 +6,9 @@ Created on Sat Feb 22 13:14:37 2014
 """
 import threading
 import time
-import mygui
 import serial_h
+import mygui
+
 from serial_h import meiserial
 import cv2
 
@@ -25,6 +26,7 @@ def doscan():
         scn.start()
     else:
         globalsh.scan_active = False
+        #cap.release()
 
 class scanthread(threading.Thread):
     def __init__(self):
