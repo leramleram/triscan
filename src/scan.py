@@ -77,10 +77,19 @@ class scanthread(threading.Thread):
                         self.maxbrightpos = self.col
                 self.gray_anaimage[self.row, self.maxbrightpos] = 255
                 self.b = ((self.maxbrightpos + 1)-self.camwidth/2)/self.h_pxmm
-                if self.b > 0: 
+                if self.b > 0: #positive
                     self.ro=self.b/math.sin(self.r_Laserangle)
                     self.x=self.ro * math.cos(self.cur_angle) * -1
                     self.y=self.ro * math.sin(self.cur_angle) * 1
+                    self.roz=self.ro * math.sin(self.cam_angle) * 1
+                    self.z=self.row/self.v_pxmm + self.roz
+                    self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " \n")
+                    self.file_ana.write(self.txt)
+                if self.b < 0: #negative
+                    self.b = self.b * -1
+                    self.ro=self.b/math.sin(self.r_Laserangle)
+                    self.x=self.ro * math.cos(self.cur_angle) * 1
+                    self.y=self.ro * math.sin(self.cur_angle) * -1
                     self.roz=self.ro * math.sin(self.cam_angle) * 1
                     self.z=self.row/self.v_pxmm + self.roz
                     self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " \n")
@@ -91,8 +100,10 @@ class scanthread(threading.Thread):
             time.sleep(self.stepdelay / 1000)
             #cv2.imwrite(anafile, gray_anaimage)
             print self.stepnr
+            print self.cur_angle
             progBarV = interp(self.stepnr,[0,globalsh.steptotake -1],[0,100])
             mygui.setbar(progBarV)
+            mygui.setlcd(math.degrees(self.cur_angle))
             if globalsh.scan_active == False:
                 break
         print 'scan done'

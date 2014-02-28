@@ -27,7 +27,7 @@ global steps_rev
 global steptotake
 global stepdelay
 steps_rev = 400
-steptotake = 300
+steptotake = 10
 stepdelay = 220
 
 global dlg_title

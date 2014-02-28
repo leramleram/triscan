@@ -36,6 +36,8 @@ class MyWidget (QtGui.QWidget, form_class):
         pass
     def progress(self, value):
         self.progressBar.setValue(value)
+    def set_deg_lcd(self, value):
+        self.deg_lcd.display(value)
     def refresh(self):
         cap.open(0)
         self.camstate = self.camBox.checkState()
@@ -167,9 +169,12 @@ app = QtGui.QApplication(sys.argv)
 form = MyWidget(None)
 opt = optWidget(None)
 dlg = dlgWidget(None)
+
 def setbar(value):
     form.progress(value)
-
+def setlcd(value):
+    form.set_deg_lcd(value)
+    
 def get_dialog():
     dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('accepted()'), dlg_accept)
     dlg.setWindowTitle(globalsh.dlg_title)
