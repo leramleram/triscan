@@ -6,8 +6,9 @@ Created on Sat Feb 22 13:14:37 2014
 """
 import threading
 import time
-import mygui
 import serial_h
+import mygui
+
 from serial_h import meiserial
 import cv2
 

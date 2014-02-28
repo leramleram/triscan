@@ -37,3 +37,6 @@ dlg_txt = 'default'
 
 global dlg_issue
 dlg_issue = 'default'
+
+global availble_p
+availble_p = []

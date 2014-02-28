@@ -89,6 +89,9 @@ class optWidget (QtGui.QWidget, opt_class):
         self.scansrev_sdr.setValue(globalsh.steptotake)
         self.stepdelay_sdr.setValue(globalsh.stepdelay)
         
+        for i in range(len(globalsh.availble_p)):    
+            self.comBox.addItem(str(globalsh.availble_p[i]))
+            
     def setspinboxl(self):
         globalsh.lspinBox = self.lspinBox.value()
     def setspinboxr(self):
