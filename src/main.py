@@ -20,6 +20,8 @@ def runprogram():
     form.connect(form.scanButton, QtCore.SIGNAL('clicked()'), scan.doscan)
     form.connect(form.camBox, QtCore.SIGNAL('clicked()'), form.refresh)
     opt.connect(opt.saveButton, QtCore.SIGNAL('clicked()'), reghandle.save_all)
+    opt.connect(opt.connectBtn, QtCore.SIGNAL('clicked()'), meiserial.connect_p)
+    opt.connect(opt.connectBox, QtCore.SIGNAL('clicked()'), opt.setautocnct)
     form.show()
     form.move(20,20)
     form.progress(0)

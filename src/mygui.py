@@ -100,7 +100,10 @@ class optWidget (QtGui.QWidget, opt_class):
             self.baudBox.addItem(str(globalsh.baudlist[i]))
         self.baud_index = self.baudBox.findText(str(self.baudrate))
         self.baudBox.setCurrentIndex(self.baud_index);
-
+        self.connectBox.setCheckState(globalsh.autocnct)
+    
+    def setautocnct(self):
+        globalsh.autocnct = int(self.connectBox.checkState())
     def setbaudrate(self):
         globalsh.baudrate = self.baudBox.currentText()
     def setcomport(self):

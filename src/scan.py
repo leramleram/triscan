@@ -39,7 +39,7 @@ class scanthread(threading.Thread):
         self.cam_dist = 300
         self.l_Laserangle = 28*self.pi/180
         self.r_Laserangle = 28*self.pi/180
-        self.steptotake = 200
+        self.steptotake = globalsh.steptotake
         self.stepangle = 2*self.pi/self.steptotake
         self.cap = cv2.VideoCapture(0)
         self.stepnr = 0
@@ -61,7 +61,7 @@ class scanthread(threading.Thread):
         
         self.gray_anaimage = cv2.cvtColor(self.feed, cv2.COLOR_BGR2GRAY)
         #cv2.imwrite(picfile, gray_image)
-        for self.stepnr in range(0, self.steptotake):
+        for self.stepnr in range(0, globalsh.steptotake):
             ret, self.feed = self.cap.read()
             self.gray_image = cv2.cvtColor(self.feed, cv2.COLOR_BGR2GRAY)
             self.cur_angle = self.stepangle*self.stepnr
@@ -87,11 +87,11 @@ class scanthread(threading.Thread):
                     self.file_ana.write(self.txt)
                     #mygui.form.show()
                     #txt = (str(row) + ", " + str(lastmaxpix) + ", " + str(maxbrightpos) + ", " + str(intensity) + " \n")
-            meiserial.step(int(self.steps_rev/self.steptotake))    
+            meiserial.step(int(self.steps_rev/globalsh.steptotake))    
             time.sleep(self.stepdelay / 1000)
             #cv2.imwrite(anafile, gray_anaimage)
-            #print self.stepnr
-            progBarV = interp(self.stepnr,[0,self.steptotake -1],[0,100])
+            print self.stepnr
+            progBarV = interp(self.stepnr,[0,globalsh.steptotake -1],[0,100])
             mygui.setbar(progBarV)
             if globalsh.scan_active == False:
                 break

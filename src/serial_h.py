@@ -17,7 +17,8 @@ class serialh(serial.Serial):
         self.list_serial_ports_p()
         time.sleep(0.5)
         self.port = ("COM" + str(globalsh.comport))
-        self.connect_p()
+        if globalsh.autocnct == 2:
+            self.connect_p()
         
     def list_serial_ports_p(self):
         self.system_name = "Windows"

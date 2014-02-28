@@ -23,6 +23,7 @@ def read_reg():
         [r_dspinbox,regtype]=(QueryValueEx(root_key,"dspinbox"))
         [r_comport,regtype]=(QueryValueEx(root_key,"comport"))
         [r_baudrate,regtype]=(QueryValueEx(root_key,"baudrate"))
+        [r_autocnct,regtype]=(QueryValueEx(root_key,"autocnct"))
         #[r_dspinbox,regtype]=(QueryValueEx(root_key,"dummy"))
         globalsh.stepdelay = int(r_stepdelay)
         globalsh.steptotake = int(r_steptotake)
@@ -32,6 +33,7 @@ def read_reg():
         globalsh.dspinBox = int(r_dspinbox)
         globalsh.comport = int(r_comport)
         globalsh.baudrate = int(r_baudrate)
+        globalsh.autocnct = int(r_autocnct)
         CloseKey(root_key)
     except WindowsError:
         globalsh.dlg_issue = 'reg'
@@ -56,6 +58,7 @@ def write_reg():
     SetValueEx(key, "dspinbox", 0, REG_DWORD, int(globalsh.dspinBox))
     SetValueEx(key, "comport", 0, REG_DWORD, int(globalsh.comport))
     SetValueEx(key, "baudrate", 0, REG_DWORD, int(globalsh.baudrate))
+    SetValueEx(key, "autocnct", 0, REG_DWORD, int(globalsh.autocnct))
     CloseKey(key)
     print 'keys written'
 def write_reg_default():
@@ -71,5 +74,6 @@ def write_reg_default():
     SetValueEx(key, "uspinbox", 0, REG_DWORD, int(globalsh.uspinBox))
     SetValueEx(key, "dspinbox", 0, REG_DWORD, int(globalsh.dspinBox))
     SetValueEx(key, "baudrate", 0, REG_DWORD, int(globalsh.baudrate))
+    SetValueEx(key, "autocnct", 0, REG_DWORD, int(globalsh.autocnct))
     CloseKey(key)
     print 'defaults written..'
