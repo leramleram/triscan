@@ -95,4 +95,4 @@ class scanthread(threading.Thread):
         meiserial.laser(1,0)
         scan_active = False
 
-scn = scanthread()
+#scn = scanthread()

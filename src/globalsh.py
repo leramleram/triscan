@@ -23,5 +23,6 @@ global updateBar
 
 global steptotake
 global stepdelay
-steptotake = 0
-stepdelay = 0
+steps_rev = 400
+steptotake = 300
+stepdelay = 220

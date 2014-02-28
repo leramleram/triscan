@@ -14,6 +14,7 @@ import globalsh
 import cv2
 form_class, base_class = uic.loadUiType("main.ui")
 opt_class, base_class = uic.loadUiType("opt.ui")
+dlg_class, base_class = uic.loadUiType("dlg.ui")
 
 class MyWidget (QtGui.QWidget, form_class):
     
@@ -59,6 +60,7 @@ class MyWidget (QtGui.QWidget, form_class):
                 cv2.destroyAllWindows()
                 self.camBox.setCheckState(0)
                 break
+            
 class optWidget (QtGui.QWidget, opt_class):
     def __init__(self,parent=None,selected=[],flag=0,*args):
         QtGui.QWidget.__init__(self,parent,*args)
@@ -109,10 +111,23 @@ class optWidget (QtGui.QWidget, opt_class):
     def setcombox(self, value):
         self.comBox.addItem(value) 
             
+            
+class dlgWidget (QtGui.QDialog, dlg_class):
+    def __init__(self,parent=None,selected=[],flag=0,*args):
+        QtGui.QDialog.__init__(self,parent,*args)
+        #self.dialog = QtGui.QDialog(parent)
+        self.setupUi(self)
+    def getdlg(self,):
+        self.setWindowTitle('meidialog')
+        self.show()
+        
+    def closedlg(self):
+        self.close()
 
 app = QtGui.QApplication(sys.argv)
 form = MyWidget(None)
 opt = optWidget(None)
+dlg = dlgWidget(None)
 def setbar(value):
     form.progress(value)
     
