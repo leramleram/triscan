@@ -31,6 +31,7 @@ class MyWidget (QtGui.QWidget, form_class):
             stopscan()
     def __del__(self):
         print 'pfiati'
+    
     def step(self):
         step(2)
     def turn(self):
@@ -182,6 +183,8 @@ def setlcd(value):
     form.set_deg_lcd(value)
 def setstatus(string):
     form.status_lbl.setText(string)
+def setscanstate(state):
+    form.scanButton.setChecked(state)
 def disable_btn():
     opt.close()
     form.turnButton.setEnabled(False) 

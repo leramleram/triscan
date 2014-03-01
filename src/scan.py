@@ -75,11 +75,11 @@ class scanthread(threading.Thread):
                 for self.col in range(globalsh.lspinBox,int(self.camwidth) - globalsh.rspinBox):
                     #print self.col
                     self.intensity = self.gray_image[self.row, self.col]
-                    self.gray_anaimage[self.row,self.col] = 0
+                    #self.gray_anaimage[self.row,self.col] = 0
                     if self.intensity >= self.lastmaxpix and self.intensity >= self.minpixbright:
                         self.lastmaxpix = self.intensity
                         self.maxbrightpos = self.col
-                self.gray_anaimage[self.row, self.maxbrightpos] = 255
+                #self.gray_anaimage[self.row, self.maxbrightpos] = 255
                 self.b = ((self.maxbrightpos + 1)-self.camwidth/2)/self.h_pxmm
                 if self.b > 0 and self.maxbrightpos > 0: #positive
                     self.ro=self.b/math.sin(self.r_Laserangle)
@@ -116,3 +116,4 @@ class scanthread(threading.Thread):
         meiserial.laser(1,0)
         globalsh.scan_active = False
         mygui.enable_btn()
+        mygui.setscanstate(False)
