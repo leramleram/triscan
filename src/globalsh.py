@@ -42,7 +42,7 @@ global availble_p
 availble_p = []
 
 global comport
-comport = 0
+comport = 15
 
 global autocnct
 autocnct = False

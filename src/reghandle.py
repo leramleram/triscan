@@ -73,6 +73,7 @@ def write_reg_default():
     SetValueEx(key, "rspinbox", 0, REG_DWORD, int(globalsh.rspinBox))
     SetValueEx(key, "uspinbox", 0, REG_DWORD, int(globalsh.uspinBox))
     SetValueEx(key, "dspinbox", 0, REG_DWORD, int(globalsh.dspinBox))
+    SetValueEx(key, "comport", 0, REG_DWORD, int(globalsh.comport))
     SetValueEx(key, "baudrate", 0, REG_DWORD, int(globalsh.baudrate))
     SetValueEx(key, "autocnct", 0, REG_DWORD, int(globalsh.autocnct))
     CloseKey(key)

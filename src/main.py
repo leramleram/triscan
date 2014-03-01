@@ -10,8 +10,9 @@ def runprogram():
     #import sys
     import reghandle
     reghandle.read_reg()
-    import scan
+    
     from serial_h import meiserial
+    import scan
     from mygui import form, opt, app
     
     form.connect(form.toolButton, QtCore.SIGNAL('clicked()'), opt.show)

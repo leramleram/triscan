@@ -64,11 +64,11 @@ class scanthread(threading.Thread):
             self.gray_image = cv2.cvtColor(self.feed, cv2.COLOR_BGR2GRAY)
             self.cur_angle = self.stepangle*self.stepnr
             #self.file_ana.write('scanning ' + str(math.degrees(self.cur_angle)) + ' degrees\n')
-            for self.row in range(uspinBox,int(self.camheight) - dspinBox):
+            for self.row in range(globalsh.uspinBox,int(self.camheight) - globalsh.dspinBox):
                 self.intensity = 0
                 self.lastmaxpix = 0
                 self.maxbrightpos = 0
-                for self.col in range(lspinBox,int(self.camwidth) - rspinBox):
+                for self.col in range(globalsh.lspinBox,int(self.camwidth) - globalsh.rspinBox):
                     self.intensity = self.gray_image[self.row, self.col]
                     self.gray_anaimage[self.row,self.col] = 0
                     if self.intensity >= self.lastmaxpix:
@@ -101,9 +101,11 @@ class scanthread(threading.Thread):
             progBarV = interp(self.stepnr,[0,globalsh.steptotake -1],[0,100])
             mygui.setbar(progBarV)
             mygui.setlcd(math.degrees(self.cur_angle + self.stepangle))
+            mygui.setstatus('scanning:')
             if globalsh.scan_active == False:
                 break
         print 'scan done'
+        mygui.setstatus('scan done')
         meiserial.step(int(self.steps_rev/globalsh.steptotake))
         self.file_ana.close()
         meiserial.laser(1,0)

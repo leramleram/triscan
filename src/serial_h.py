@@ -5,7 +5,7 @@ Created on Sat Feb 22 13:22:49 2014
 @author: christian
 """
 import serial
-#from serial import Serial
+from serial import Serial
 import time
 import glob
 
@@ -33,7 +33,6 @@ class serialh(serial.Serial):
                 except serial.SerialException:
                     pass
             globalsh.availble_p = self.available_p
-            
         elif self.system_name == "Darwin":
             # Mac
             return glob.glob('/dev/tty*') + glob.glob('/dev/cu*')

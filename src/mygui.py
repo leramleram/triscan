@@ -21,6 +21,7 @@ class MyWidget (QtGui.QWidget, form_class):
     def __init__(self,parent=None,selected=[],flag=0,*args):
         QtGui.QWidget.__init__(self,parent,*args)
         self.setupUi(self)
+        self.status_lbl.setText('ready for rumble!')
     def update_bar(self):
         self.progressBar.setValue(progBarV)
     def initscan(self):
@@ -174,6 +175,8 @@ def setbar(value):
     form.progress(value)
 def setlcd(value):
     form.set_deg_lcd(value)
+def setstatus(string):
+    form.status_lbl.setText(string)
 def disable_btn():
     opt.close()
     form.turnButton.setEnabled(False) 
