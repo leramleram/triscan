@@ -66,15 +66,17 @@ class serialh(serial.Serial):
         
     def laser(self, n, v):
         if n == 0:
-            if v == 1:
+            if v == 2:
                 self.ser.write("L")
             else:
                 self.ser.write("l")
         if n == 1:
-            if v == 1:
+            if v == 2:
                 self.ser.write("R")
             else:
                 self.ser.write("r")
+    def setlLaser(self):
+        self.ser.write("L")
                 
 
 meiserial = serialh()

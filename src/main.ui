@@ -6,18 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>296</width>
-    <height>184</height>
+    <width>295</width>
+    <height>217</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="toolTip">
+   <string>options</string>
+  </property>
   <widget class="QProgressBar" name="progressBar">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>140</y>
+     <y>180</y>
      <width>291</width>
      <height>23</height>
     </rect>
@@ -29,14 +32,24 @@
   <widget class="QToolButton" name="toolButton">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>50</y>
-     <width>251</width>
-     <height>21</height>
+     <x>20</x>
+     <y>40</y>
+     <width>41</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>Options</string>
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/48x48/png/48x48/System.png</normaloff>:/48x48/png/48x48/System.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>19</width>
+     <height>19</height>
+    </size>
    </property>
   </widget>
   <widget class="QPushButton" name="scanButton">
@@ -54,6 +67,10 @@
    <property name="text">
     <string>Scan</string>
    </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/48x48/png/48x48/View.png</normaloff>:/48x48/png/48x48/View.png</iconset>
+   </property>
   </widget>
   <widget class="QPushButton" name="turnButton">
    <property name="geometry">
@@ -69,6 +86,10 @@
    </property>
    <property name="text">
     <string>Turn</string>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/48x48/png/48x48/Renew.png</normaloff>:/48x48/png/48x48/Renew.png</iconset>
    </property>
   </widget>
   <widget class="QPushButton" name="stepButton">
@@ -86,12 +107,16 @@
    <property name="text">
     <string>Step</string>
    </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/48x48/png/48x48/Next.png</normaloff>:/48x48/png/48x48/Next.png</iconset>
+   </property>
   </widget>
   <widget class="QCheckBox" name="camBox">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>110</y>
+     <x>20</x>
+     <y>140</y>
      <width>70</width>
      <height>17</height>
     </rect>
@@ -174,8 +199,8 @@
   <widget class="QLCDNumber" name="deg_lcd">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>80</y>
+     <x>190</x>
+     <y>40</y>
      <width>64</width>
      <height>23</height>
     </rect>
@@ -190,6 +215,50 @@
     <string>degrees</string>
    </property>
   </widget>
+  <widget class="QCheckBox" name="lLaserBox">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>140</y>
+     <width>70</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>left Laser</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="rLaserBox">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>140</y>
+     <width>70</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>right Laser</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>40</y>
+     <width>41</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>°</string>
+   </property>
+  </widget>
   <zorder>frame</zorder>
   <zorder>progressBar</zorder>
   <zorder>toolButton</zorder>
@@ -198,7 +267,12 @@
   <zorder>stepButton</zorder>
   <zorder>camBox</zorder>
   <zorder>deg_lcd</zorder>
+  <zorder>lLaserBox</zorder>
+  <zorder>rLaserBox</zorder>
+  <zorder>label_2</zorder>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

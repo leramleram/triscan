@@ -18,10 +18,16 @@ def runprogram():
     form.connect(form.stepButton, QtCore.SIGNAL('clicked()'), meiserial.onestep)
     form.connect(form.turnButton, QtCore.SIGNAL('clicked()'), meiserial.turn)
     form.connect(form.scanButton, QtCore.SIGNAL('clicked()'), scan.doscan)
+    #form.connect(form.lLaserBox, QtCore.SIGNAL('clicked()'), meiserial.setlLaser)
+    form.lLaserBox.clicked.connect(lambda:  meiserial.laser(0,int(form.lLaserBox.checkState())))
+    form.rLaserBox.clicked.connect(lambda:  meiserial.laser(1,int(form.rLaserBox.checkState())))
     form.connect(form.camBox, QtCore.SIGNAL('clicked()'), form.refresh)
     opt.connect(opt.saveButton, QtCore.SIGNAL('clicked()'), reghandle.save_all)
     opt.connect(opt.connectBtn, QtCore.SIGNAL('clicked()'), meiserial.connect_p)
     opt.connect(opt.connectBox, QtCore.SIGNAL('clicked()'), opt.setautocnct)
+
+    
+    #opt.connect(opt.rLaserBox, QtCore.SIGNAL('clicked()'), opt.setautocnct)
     form.show()
     form.move(20,20)
     form.progress(0)

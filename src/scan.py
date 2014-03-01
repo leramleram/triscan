@@ -55,7 +55,7 @@ class scanthread(threading.Thread):
         self.camheight = cap.get(4)
         self.stepangle = 2*self.pi/self.steptotake
         self.file_ana = open("file.asc", 'w')
-        meiserial.laser(1,1)
+        meiserial.laser(1,2)
         ret, self.anaimg = self.cap.read()
         ret, self.feed = self.cap.read()
         
@@ -65,6 +65,7 @@ class scanthread(threading.Thread):
             ret, self.feed = self.cap.read()
             self.gray_image = cv2.cvtColor(self.feed, cv2.COLOR_BGR2GRAY)
             self.cur_angle = self.stepangle*self.stepnr
+            self.file_ana.write('scanning ' + str(math.degrees(self.cur_angle)) + ' degrees\n')
             for self.row in range(uspinBox,int(self.camheight) - dspinBox):
                 self.intensity = 0
                 self.lastmaxpix = 0
@@ -88,10 +89,10 @@ class scanthread(threading.Thread):
                 if self.b < 0: #negative
                     self.b = self.b * -1
                     self.ro=self.b/math.sin(self.r_Laserangle)
-                    self.x=self.ro * math.cos(self.cur_angle) * 1
+                    self.x=self.ro * math.cos(self.cur_angle) * -1
                     self.y=self.ro * math.sin(self.cur_angle) * -1
                     self.roz=self.ro * math.sin(self.cam_angle) * 1
-                    self.z=self.row/self.v_pxmm + self.roz
+                    self.z=self.row/self.v_pxmm - self.roz
                     self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " \n")
                     self.file_ana.write(self.txt)
                     #mygui.form.show()
@@ -99,14 +100,15 @@ class scanthread(threading.Thread):
             meiserial.step(int(self.steps_rev/globalsh.steptotake))    
             time.sleep(self.stepdelay / 1000)
             #cv2.imwrite(anafile, gray_anaimage)
-            print self.stepnr
-            print self.cur_angle
+            #print self.stepnr
+            #print self.cur_angle
             progBarV = interp(self.stepnr,[0,globalsh.steptotake -1],[0,100])
             mygui.setbar(progBarV)
-            mygui.setlcd(math.degrees(self.cur_angle))
+            mygui.setlcd(math.degrees(self.cur_angle + self.stepangle))
             if globalsh.scan_active == False:
                 break
         print 'scan done'
+        meiserial.step(int(self.steps_rev/globalsh.steptotake))
         self.file_ana.close()
         meiserial.laser(1,0)
         globalsh.scan_active = False

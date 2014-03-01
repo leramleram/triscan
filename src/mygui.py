@@ -48,10 +48,10 @@ class MyWidget (QtGui.QWidget, form_class):
             self.camBox.setCheckState(0)
         while self.camstate == 2:
             #print 'yoaha'
-            ret, feed = cap.read()
+            ret, feed = cap.read()  #first we draw a cross in the middle of the video frame
             cv2.line(feed,(int(camwidth / 2),0),(int(camwidth/2),int(camheight)),(255,0,0),2)
             cv2.line(feed,(0,int(camheight/2)),(int(camwidth),int(camheight/2)),(255,0,0),2)
-
+            #then we draw the limitation lines
             cv2.line(feed,(opt.lspinBox.value(),0),(opt.lspinBox.value(),int(camheight)),(0,255,0),2)
             cv2.line(feed,(int(camwidth) - opt.rspinBox.value(),0),(int(camwidth) - opt.rspinBox.value(),int(camheight)),(0,255,0),2)
             cv2.line(feed,(0,opt.uspinBox.value()),(int(camwidth),opt.uspinBox.value()),(255,255,0),2)
