@@ -7,13 +7,14 @@ Created on Fri Feb 21 21:07:46 2014
 
 def runprogram():
     from PyQt4 import QtCore,QtGui,uic
-    #import sys
+    import sys
+    app = QtGui.QApplication(sys.argv)
     import reghandle
     reghandle.read_reg()
     
     from serial_h import meiserial
     import scan
-    from mygui import form, opt, app
+    from mygui import form, opt
     
     form.connect(form.toolButton, QtCore.SIGNAL('clicked()'), opt.getopt)
     form.connect(form.stepButton, QtCore.SIGNAL('clicked()'), meiserial.onestep)
@@ -27,6 +28,7 @@ def runprogram():
     opt.connect(opt.connectBox, QtCore.SIGNAL('clicked()'), opt.setautocnct)
     form.show()
     form.move(20,20)
+    form.show()
     form.progress(0)
     app.exec_()
 

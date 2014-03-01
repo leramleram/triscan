@@ -6,6 +6,7 @@ Created on Sat Feb 22 13:14:37 2014
 """
 import threading
 import time
+import smokesignal
 #import serial_h
 import mygui
 from serial_h import meiserial
@@ -23,11 +24,13 @@ def doscan():
         meiserial.laser(2,0)
         globalsh.scan_active = True
         scn = scanthread()
-        mygui.disable_btn()
+        #mygui.disable_btn()
+        smokesignal.emit('btn_lock')
         scn.start()
     else:
         globalsh.scan_active = False
-        mygui.setbar(0)
+        #mygui.setbar(0)
+        smokesignal.emit('progress', 0)
 class scanthread(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
@@ -104,16 +107,22 @@ class scanthread(threading.Thread):
             #print self.stepnr
             #print self.cur_angle
             progBarV = interp(self.stepnr,[0,globalsh.steptotake -1],[0,100])
-            mygui.setbar(progBarV)
-            mygui.setlcd(math.degrees(self.cur_angle + self.stepangle))
-            mygui.setstatus('scanning:')
+            #mygui.setbar(progBarV)
+            smokesignal.emit('progress', progBarV)
+            #mygui.setlcd(math.degrees(self.cur_angle + self.stepangle))
+            smokesignal.emit('lcd', math.degrees(self.cur_angle + self.stepangle))
+            #mygui.setstatus('scanning:')
+            smokesignal.emit('status', 'scanning:')
             if globalsh.scan_active == False:
                 break
         print 'scan done'
-        mygui.setstatus('scan done')
+        #mygui.setstatus('scan done')
+        smokesignal.emit('status', 'scan finished.')
         meiserial.step(int(self.steps_rev/globalsh.steptotake))
         self.file_ana.close()
         meiserial.laser(1,0)
         globalsh.scan_active = False
-        mygui.enable_btn()
-        mygui.setscanstate(False)
+        #mygui.enable_btn()
+        smokesignal.emit('btn_unlock')
+        #.setscanstate(False)
+        smokesignal.emit('scanbtnstate', False)

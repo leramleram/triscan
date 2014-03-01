@@ -8,7 +8,8 @@ import serial
 from serial import Serial
 import time
 import glob
-
+import dialog
+import smokesignal
 import globalsh
             
 class serialh(serial.Serial):
@@ -46,8 +47,10 @@ class serialh(serial.Serial):
             print("port " + self.port + "  opened successfully")
         except serial.SerialException:
             print ('the requested serial port ' + str(self.port) + ' could not be opened')
-            globalsh.dlg_txt = 'serial port could not be opened'
+            globalsh.dlg_txt = 'serial port could not be opened, should we start in sim mode?'
+            globalsh.dlg_issue = 'ser'
             #mygui.get_dialog()
+            smokesignal.emit('dialog')
          
     def step(self, n):
         for i in range(n):

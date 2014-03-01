@@ -6,15 +6,17 @@ Created on Sat Feb 22 04:14:31 2014
 """
 from PyQt4 import QtCore,QtGui,uic
 import sys
+import smokesignal
 from numpy import interp
 from capture import cap
 from globalsh import *
 import globalsh
 import cv2
 import reghandle
+
 form_class, base_class = uic.loadUiType("main.ui")
 opt_class, base_class = uic.loadUiType("opt.ui")
-dlg_class, base_class = uic.loadUiType("dlg.ui")
+
 
 class MyWidget (QtGui.QWidget, form_class):
     
@@ -158,33 +160,24 @@ class optWidget (QtGui.QWidget, opt_class):
         self.close()  
     def setcombox(self, value):
         self.comBox.addItem(value) 
-            
-            
-class dlgWidget (QtGui.QDialog, dlg_class):
-    def __init__(self,parent=None,selected=[],flag=0,*args):
-        QtGui.QDialog.__init__(self,parent,*args)
-        #self.dialog = QtGui.QDialog(parent)
-        self.setupUi(self)
-    def getdlg(self,):
-        #self.setWindowTitle('meidialog')
-        self.show()
-        
-    def closedlg(self):
-        self.close()
 
-app = QtGui.QApplication(sys.argv)
+
 form = MyWidget(None)
 opt = optWidget(None)
-dlg = dlgWidget(None)
 
+@smokesignal.on('progress')
 def setbar(value):
     form.progress(value)
+@smokesignal.on('lcd')
 def setlcd(value):
     form.set_deg_lcd(value)
+@smokesignal.on('status')
 def setstatus(string):
     form.status_lbl.setText(string)
-def setscanstate(state):
+@smokesignal.on('scanbtnstate')
+def setscanbtnstate(state):
     form.scanButton.setChecked(state)
+@smokesignal.on('btn_lock')
 def disable_btn():
     opt.close()
     form.turnButton.setEnabled(False) 
@@ -195,6 +188,7 @@ def disable_btn():
     form.lft_rd_btn.setEnabled(False)
     form.rgt_rd_btn.setEnabled(False)
     form.dual_rd_btn.setEnabled(False)
+@smokesignal.on('btn_unlock')
 def enable_btn():
     form.turnButton.setEnabled(True) 
     form.stepButton.setEnabled(True) 
@@ -204,16 +198,5 @@ def enable_btn():
     form.lft_rd_btn.setEnabled(True)
     form.rgt_rd_btn.setEnabled(True)
     form.dual_rd_btn.setEnabled(True)
-def get_dialog():
-    dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('accepted()'), dlg_accept)
-    dlg.setWindowTitle(globalsh.dlg_title)
-    dlg.label_dlg.setText(globalsh.dlg_txt)
-    dlg.getdlg()
-    
-def dlg_accept():
-    if globalsh.dlg_issue == 'serial':
-        pass
-    if globalsh.dlg_issue == 'reg':
-        reghandle.write_reg_default
-    
-import scan
+
+# import scan

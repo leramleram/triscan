@@ -9,6 +9,7 @@ Created on Wed Feb 26 22:43:04 2014
 #import os
 import globalsh
 from _winreg import *
+import smokesignal
 
 aReg = ConnectRegistry(None,HKEY_LOCAL_MACHINE)
 
@@ -39,8 +40,9 @@ def read_reg():
         CloseKey(root_key)
     except WindowsError:
         globalsh.dlg_issue = 'reg'
-        globalsh.dlg_txt = 'oops, could not read Windows registry, perhaps first start? writing default values...'
-        write_reg_default()
+        globalsh.dlg_txt = 'oops, could not read Windows registry, perhaps first start? should i write the defaults?...'
+        smokesignal.emit('dialog')
+        #write_reg_default()
         
 def save_all():
     
@@ -64,6 +66,8 @@ def write_reg():
     SetValueEx(key, "minpixbright", 0, REG_DWORD, int(globalsh.minpixbright))
     CloseKey(key)
     print 'keys written'
+
+@smokesignal.on('write_def_reg')
 def write_reg_default():
     keyVal = r'SOFTWARE\CHAOSCOMPANY\cfg'
     try:
