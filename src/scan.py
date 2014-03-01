@@ -81,7 +81,7 @@ class scanthread(threading.Thread):
                         self.maxbrightpos = self.col
                 self.gray_anaimage[self.row, self.maxbrightpos] = 255
                 self.b = ((self.maxbrightpos + 1)-self.camwidth/2)/self.h_pxmm
-                if self.b > 0: #positive
+                if self.b > 0 and self.maxbrightpos > 0: #positive
                     self.ro=self.b/math.sin(self.r_Laserangle)
                     self.x=self.ro * math.cos(self.cur_angle) * -1
                     self.y=self.ro * math.sin(self.cur_angle) * 1
@@ -89,7 +89,7 @@ class scanthread(threading.Thread):
                     self.z=self.row/self.v_pxmm + self.roz
                     self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " \n")
                     self.file_ana.write(self.txt)
-                if self.b < 0: #negative
+                if self.b < 0 and self.maxbrightpos > 0: #negative
                     self.b = self.b * -1
                     self.ro=self.b/math.sin(self.r_Laserangle)
                     self.x=self.ro * math.cos(self.cur_angle) * 1
