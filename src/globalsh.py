@@ -51,3 +51,6 @@ global baudrate
 global baudlist
 baudrate = 9600
 baudlist = ('4800', '9600', '19200', '38400', '57600', '115200')
+
+global minpixbright
+minpixbright = 20

@@ -75,6 +75,7 @@ class optWidget (QtGui.QWidget, opt_class):
         self.connect(self.closeButton, QtCore.SIGNAL('clicked()'), self.closeopt)
         self.connect(self.scansrev_sdr, QtCore.SIGNAL('valueChanged(int)'), self.set_scansrev)
         self.connect(self.stepdelay_sdr, QtCore.SIGNAL('valueChanged(int)'), self.set_stepdelay)
+        self.connect(self.pixbright_sdr, QtCore.SIGNAL('valueChanged(int)'), self.set_minpixbright)
         self.connect(self.lspinBox, QtCore.SIGNAL('valueChanged(int)'), self.setspinboxl)
         self.connect(self.rspinBox, QtCore.SIGNAL('valueChanged(int)'), self.setspinboxr)
         self.connect(self.uspinBox, QtCore.SIGNAL('valueChanged(int)'), self.setspinboxu)
@@ -85,6 +86,8 @@ class optWidget (QtGui.QWidget, opt_class):
         self.resoBox.activated.connect(self.set_resolution)
         self.resoBox.setCurrentIndex(1)
         self.scansrev_sdr.setValue(globalsh.steptotake)
+        self.pixbright_sdr.setValue(globalsh.minpixbright)
+        self.pixbright_lbl.setText(str(globalsh.minpixbright))
         self.steps_lbl.setText(str(globalsh.steptotake))
         self.delay_lbl.setText(str(globalsh.stepdelay))
         self.lspinBox.setValue(int(globalsh.lspinBox))
@@ -104,7 +107,9 @@ class optWidget (QtGui.QWidget, opt_class):
         self.baud_index = self.baudBox.findText(str(self.baudrate))
         self.baudBox.setCurrentIndex(self.baud_index);
         self.connectBox.setCheckState(globalsh.autocnct)
-    
+    def set_minpixbright(self):
+        globalsh.minpixbright = self.pixbright_sdr.value()
+        self.pixbright_lbl.setText(str(globalsh.minpixbright))
     def setautocnct(self):
         globalsh.autocnct = int(self.connectBox.checkState())
     def setbaudrate(self):
@@ -144,10 +149,10 @@ class optWidget (QtGui.QWidget, opt_class):
             cap.set(4,960)
             camwidth = 1280
             camheight = 960
-    def getopt():
-        print 'yess'
+    def getopt(self):
+        #print 'yess'
         self.show()
-        self.move(10, 20)
+        self.move(360, 20)
     def closeopt(self):
         self.close()  
     def setcombox(self, value):

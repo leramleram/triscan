@@ -15,7 +15,7 @@ def runprogram():
     import scan
     from mygui import form, opt, app
     
-    form.connect(form.toolButton, QtCore.SIGNAL('clicked()'), opt.show)
+    form.connect(form.toolButton, QtCore.SIGNAL('clicked()'), opt.getopt)
     form.connect(form.stepButton, QtCore.SIGNAL('clicked()'), meiserial.onestep)
     form.connect(form.turnButton, QtCore.SIGNAL('clicked()'), meiserial.turn)
     form.connect(form.scanButton, QtCore.SIGNAL('clicked()'), scan.doscan)

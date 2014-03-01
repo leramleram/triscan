@@ -19,6 +19,8 @@ import globalsh
 
 def doscan():
     if globalsh.scan_active == False:
+        meiserial.laser(1,0)
+        meiserial.laser(2,0)
         globalsh.scan_active = True
         scn = scanthread()
         mygui.disable_btn()
@@ -41,6 +43,7 @@ class scanthread(threading.Thread):
         self.steptotake = globalsh.steptotake
         self.stepangle = 2*self.pi/self.steptotake
         self.cap = cv2.VideoCapture(0)
+        self.minpixbright = globalsh.minpixbright
         self.stepnr = 0
         self.stepdelay = globalsh.stepdelay #ms
         self.barvalue = 0
@@ -50,7 +53,7 @@ class scanthread(threading.Thread):
         x = 0
         y = 0
         z = 0
-        self.camwidth = self.cap.get(3)
+        self.camwidth = cap.get(3)
         self.camheight = cap.get(4)
         self.stepangle = 2*self.pi/self.steptotake
         self.file_ana = open("file.asc", 'w')
@@ -65,13 +68,15 @@ class scanthread(threading.Thread):
             self.cur_angle = self.stepangle*self.stepnr
             #self.file_ana.write('scanning ' + str(math.degrees(self.cur_angle)) + ' degrees\n')
             for self.row in range(globalsh.uspinBox,int(self.camheight) - globalsh.dspinBox):
+                #print self.row
                 self.intensity = 0
                 self.lastmaxpix = 0
                 self.maxbrightpos = 0
                 for self.col in range(globalsh.lspinBox,int(self.camwidth) - globalsh.rspinBox):
+                    #print self.col
                     self.intensity = self.gray_image[self.row, self.col]
                     self.gray_anaimage[self.row,self.col] = 0
-                    if self.intensity >= self.lastmaxpix:
+                    if self.intensity >= self.lastmaxpix and self.intensity >= self.minpixbright:
                         self.lastmaxpix = self.intensity
                         self.maxbrightpos = self.col
                 self.gray_anaimage[self.row, self.maxbrightpos] = 255
@@ -87,10 +92,10 @@ class scanthread(threading.Thread):
                 if self.b < 0: #negative
                     self.b = self.b * -1
                     self.ro=self.b/math.sin(self.r_Laserangle)
-                    self.x=self.ro * math.cos(self.cur_angle) * -1
+                    self.x=self.ro * math.cos(self.cur_angle) * 1
                     self.y=self.ro * math.sin(self.cur_angle) * -1
-                    self.roz=self.ro * math.sin(self.cam_angle) * 1
-                    self.z=self.row/self.v_pxmm - self.roz
+                    self.roz=self.ro * math.sin(self.cam_angle) * -1
+                    self.z=self.row/self.v_pxmm + self.roz
                     self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " \n")
                     self.file_ana.write(self.txt)
             meiserial.step(int(self.steps_rev/globalsh.steptotake))    
