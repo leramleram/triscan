@@ -6,12 +6,10 @@ Created on Sat Feb 22 13:14:37 2014
 """
 import threading
 import time
-import serial_h
+#import serial_h
 import mygui
-
 from serial_h import meiserial
 import cv2
-
 import math
 from numpy import interp
 from capture import cap
@@ -23,6 +21,7 @@ def doscan():
     if globalsh.scan_active == False:
         globalsh.scan_active = True
         scn = scanthread()
+        mygui.disable_btn()
         scn.start()
     else:
         globalsh.scan_active = False
@@ -58,14 +57,13 @@ class scanthread(threading.Thread):
         meiserial.laser(1,2)
         ret, self.anaimg = self.cap.read()
         ret, self.feed = self.cap.read()
-        
         self.gray_anaimage = cv2.cvtColor(self.feed, cv2.COLOR_BGR2GRAY)
         #cv2.imwrite(picfile, gray_image)
         for self.stepnr in range(0, globalsh.steptotake):
             ret, self.feed = self.cap.read()
             self.gray_image = cv2.cvtColor(self.feed, cv2.COLOR_BGR2GRAY)
             self.cur_angle = self.stepangle*self.stepnr
-            self.file_ana.write('scanning ' + str(math.degrees(self.cur_angle)) + ' degrees\n')
+            #self.file_ana.write('scanning ' + str(math.degrees(self.cur_angle)) + ' degrees\n')
             for self.row in range(uspinBox,int(self.camheight) - dspinBox):
                 self.intensity = 0
                 self.lastmaxpix = 0
@@ -95,8 +93,6 @@ class scanthread(threading.Thread):
                     self.z=self.row/self.v_pxmm - self.roz
                     self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " \n")
                     self.file_ana.write(self.txt)
-                    #mygui.form.show()
-                    #txt = (str(row) + ", " + str(lastmaxpix) + ", " + str(maxbrightpos) + ", " + str(intensity) + " \n")
             meiserial.step(int(self.steps_rev/globalsh.steptotake))    
             time.sleep(self.stepdelay / 1000)
             #cv2.imwrite(anafile, gray_anaimage)
@@ -112,3 +108,4 @@ class scanthread(threading.Thread):
         self.file_ana.close()
         meiserial.laser(1,0)
         globalsh.scan_active = False
+        mygui.enable_btn()

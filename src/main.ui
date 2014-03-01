@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>295</width>
-    <height>217</height>
+    <width>280</width>
+    <height>211</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,8 +21,8 @@
     <rect>
      <x>10</x>
      <y>180</y>
-     <width>291</width>
-     <height>23</height>
+     <width>261</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="value">
@@ -69,7 +69,8 @@
    </property>
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/48x48/png/48x48/View.png</normaloff>:/48x48/png/48x48/View.png</iconset>
+     <normaloff>:/48x48/png/48x48/View.png</normaloff>
+     <normalon>:/48x48/png/48x48/Close.png</normalon>:/48x48/png/48x48/View.png</iconset>
    </property>
   </widget>
   <widget class="QPushButton" name="turnButton">
@@ -182,7 +183,7 @@
      <string>Right</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="dual_rdbtn">
+   <widget class="QRadioButton" name="dual_rd_btn">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -199,10 +200,10 @@
   <widget class="QLCDNumber" name="deg_lcd">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>180</x>
      <y>40</y>
-     <width>64</width>
-     <height>23</height>
+     <width>71</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
@@ -213,6 +214,12 @@
    </property>
    <property name="toolTip">
     <string>degrees</string>
+   </property>
+   <property name="smallDecimalPoint">
+    <bool>false</bool>
+   </property>
+   <property name="segmentStyle">
+    <enum>QLCDNumber::Flat</enum>
    </property>
   </widget>
   <widget class="QCheckBox" name="lLaserBox">

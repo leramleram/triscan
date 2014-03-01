@@ -5,7 +5,7 @@ Created on Sat Feb 22 13:22:49 2014
 @author: christian
 """
 import serial
-from serial import Serial
+#from serial import Serial
 import time
 import glob
 

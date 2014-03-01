@@ -174,7 +174,25 @@ def setbar(value):
     form.progress(value)
 def setlcd(value):
     form.set_deg_lcd(value)
-    
+def disable_btn():
+    opt.close()
+    form.turnButton.setEnabled(False) 
+    form.stepButton.setEnabled(False) 
+    form.toolButton.setEnabled(False) 
+    form.lLaserBox.setEnabled(False)
+    form.rLaserBox.setEnabled(False)
+    form.lft_rd_btn.setEnabled(False)
+    form.rgt_rd_btn.setEnabled(False)
+    form.dual_rd_btn.setEnabled(False)
+def enable_btn():
+    form.turnButton.setEnabled(True) 
+    form.stepButton.setEnabled(True) 
+    form.toolButton.setEnabled(True)
+    form.lLaserBox.setEnabled(True)
+    form.rLaserBox.setEnabled(True)
+    form.lft_rd_btn.setEnabled(True)
+    form.rgt_rd_btn.setEnabled(True)
+    form.dual_rd_btn.setEnabled(True)
 def get_dialog():
     dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('accepted()'), dlg_accept)
     dlg.setWindowTitle(globalsh.dlg_title)
