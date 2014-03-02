@@ -42,9 +42,10 @@ def dlg_accept():
 def dlg_reject():
     if globalsh.dlg_issue == 'ser':
         print 'exiting'
-        exit()
+        smokesignal.emit('killme')
     if globalsh.dlg_issue == 'reg':
         #smokesignal.emit('write_def_reg')
-        pass
+        print 'exiting'
+        #smokesignal.emit('killme')
     
     

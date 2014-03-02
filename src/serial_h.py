@@ -47,7 +47,7 @@ class serialh(serial.Serial):
             print("port " + self.port + "  opened successfully")
         except serial.SerialException:
             print ('the requested serial port ' + str(self.port) + ' could not be opened')
-            globalsh.dlg_txt = 'serial port could not be opened, should we start in sim mode?'
+            globalsh.dlg_txt = 'serial port could not be opened, the program will likely not work'
             globalsh.dlg_issue = 'ser'
             #mygui.get_dialog()
             smokesignal.emit('dialog')

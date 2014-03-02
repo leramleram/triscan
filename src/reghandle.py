@@ -40,7 +40,7 @@ def read_reg():
         CloseKey(root_key)
     except WindowsError:
         globalsh.dlg_issue = 'reg'
-        globalsh.dlg_txt = 'oops, could not read Windows registry, perhaps first start? should i write the defaults?...'
+        globalsh.dlg_txt = 'oops, could not read Windows registry, perhaps first start? should i write the defaults? If not you have to enter all the values again each time aou restart the program...'
         smokesignal.emit('dialog')
         #write_reg_default()
         

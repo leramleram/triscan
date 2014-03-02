@@ -8,14 +8,57 @@ Created on Fri Feb 21 21:07:46 2014
 def runprogram():
     from PyQt4 import QtCore,QtGui,uic
     import sys
+    import smokesignal
     app = QtGui.QApplication(sys.argv)
     import reghandle
     reghandle.read_reg()
-    
     from serial_h import meiserial
+    import capture
     import scan
-    from mygui import form, opt
+    from mygui import MyWidget, optWidget
     
+    form = MyWidget(None)
+    opt = optWidget(None)
+    
+    
+    @smokesignal.on('killme')
+    def killme():
+        opt.close()
+        form.close()
+    @smokesignal.on('progress')
+    def setbar(value):
+        form.progress(value)
+    @smokesignal.on('lcd')
+    def setlcd(value):
+        form.set_deg_lcd(value)
+    @smokesignal.on('status')
+    def setstatus(string):
+        form.status_lbl.setText(string)
+    @smokesignal.on('scanbtnstate')
+    def setscanbtnstate(state):
+        form.scanButton.setChecked(state)
+    @smokesignal.on('btn_lock')
+    def disable_btn():
+        opt.close()
+        form.turnButton.setEnabled(False) 
+        form.stepButton.setEnabled(False) 
+        form.toolButton.setEnabled(False) 
+        form.lLaserBox.setEnabled(False)
+        form.rLaserBox.setEnabled(False)
+        form.lft_rd_btn.setEnabled(False)
+        form.rgt_rd_btn.setEnabled(False)
+        form.dual_rd_btn.setEnabled(False)
+    @smokesignal.on('btn_unlock')
+    def enable_btn():
+        form.turnButton.setEnabled(True) 
+        form.stepButton.setEnabled(True) 
+        form.toolButton.setEnabled(True)
+        form.lLaserBox.setEnabled(True)
+        form.rLaserBox.setEnabled(True)
+        form.lft_rd_btn.setEnabled(True)
+        form.rgt_rd_btn.setEnabled(True)
+        form.dual_rd_btn.setEnabled(True)
+        
     form.connect(form.toolButton, QtCore.SIGNAL('clicked()'), opt.getopt)
     form.connect(form.stepButton, QtCore.SIGNAL('clicked()'), meiserial.onestep)
     form.connect(form.turnButton, QtCore.SIGNAL('clicked()'), meiserial.turn)

@@ -19,6 +19,16 @@ rspinBox = 22
 uspinBox = 23
 dspinBox = 24
 
+global lborder
+global rborder
+global uborder
+global dborder
+
+lborder = 0
+rborder = 0
+dborder = 0
+uborder = 0
+
 global progBarV
 progBarV = 0
 
@@ -54,3 +64,8 @@ baudlist = ('4800', '9600', '19200', '38400', '57600', '115200')
 
 global minpixbright
 minpixbright = 20
+
+global camwidth 
+global camheight
+camwidth = 800
+camheight = 600

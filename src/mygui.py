@@ -12,7 +12,7 @@ from capture import cap
 from globalsh import *
 import globalsh
 import cv2
-import reghandle
+#import reghandle
 
 form_class, base_class = uic.loadUiType("main.ui")
 opt_class, base_class = uic.loadUiType("opt.ui")
@@ -43,30 +43,7 @@ class MyWidget (QtGui.QWidget, form_class):
     def set_deg_lcd(self, value):
         self.deg_lcd.display(value)
     def refresh(self):
-        cap.open(0)
-        self.camstate = self.camBox.checkState()
-        camwidth = cap.get(3)
-        camheight = cap.get(4)
-        if self.camstate == 0:
-            cv2.destroyAllWindows()
-            self.camBox.setCheckState(0)
-        while self.camstate == 2:
-            #print 'yoaha'
-            ret, feed = cap.read()  #first we draw a cross in the middle of the video frame
-            cv2.line(feed,(int(camwidth / 2),0),(int(camwidth/2),int(camheight)),(255,0,0),2)
-            cv2.line(feed,(0,int(camheight/2)),(int(camwidth),int(camheight/2)),(255,0,0),2)
-            #then we draw the limitation lines
-            cv2.line(feed,(opt.lspinBox.value(),0),(opt.lspinBox.value(),int(camheight)),(0,255,0),2)
-            cv2.line(feed,(int(camwidth) - opt.rspinBox.value(),0),(int(camwidth) - opt.rspinBox.value(),int(camheight)),(0,255,0),2)
-            cv2.line(feed,(0,opt.uspinBox.value()),(int(camwidth),opt.uspinBox.value()),(255,255,0),2)
-            cv2.line(feed,(0,int(camheight) - opt.dspinBox.value()),(int(camwidth),int(camheight) - opt.dspinBox.value()),(255,255,0),2)        
-            cv2.imshow("webcam", feed)
-            #time.sleep(0.02)
-            key = cv2.waitKey(20)
-            if key in [27, ord('Q'), ord('q')]: # exit on ESC
-                cv2.destroyAllWindows()
-                self.camBox.setCheckState(0)
-                break
+        smokesignal.emit('refresh', self.camBox.checkState())
             
 class optWidget (QtGui.QWidget, opt_class):
     def __init__(self,parent=None,selected=[],flag=0,*args):
@@ -118,16 +95,24 @@ class optWidget (QtGui.QWidget, opt_class):
     def setbaudrate(self):
         globalsh.baudrate = self.baudBox.currentText()
     def setcomport(self):
-        globalsh.comport = self.comBox.currentText()
-    def setspinboxl(self):
-        globalsh.lspinBox = self.lspinBox.value()
-    def setspinboxr(self):
-        globalsh.rspinBox = self.rspinBox.value()
-    def setspinboxu(self):
-        globalsh.uspinBox = self.uspinBox.value()
-    def setspinboxd(self):
-        globalsh.dspinBox = self.dspinBox.value()
+        globalsh.comport = self.comBox.currentText()    
         
+    def setspinboxl(self):
+        #globalsh.lborder = int(interp(self.lspinBox.value(),[0,100],[0,camwidth/2])) 
+        globalsh.lspinBox = self.lspinBox.value()
+        smokesignal.emit('setborders')
+    def setspinboxr(self):
+        #globalsh.rborder = int(interp(self.rspinBox.value(),[0,100],[0,camwidth/2]))
+        globalsh.rspinBox = self.rspinBox.value()
+        smokesignal.emit('setborders')
+    def setspinboxu(self):
+        #globalsh.uborder = int(interp(self.uspinBox.value(),[0,100],[0,camheight/2]))
+        globalsh.uspinBox = self.uspinBox.value()
+        smokesignal.emit('setborders')
+    def setspinboxd(self):
+        #globalsh.dborder = int(interp(self.dspinBox.value(),[0,100],[0,camheight/2]))
+        globalsh.dspinBox = self.dspinBox.value()
+        smokesignal.emit('setborders')
     def set_scansrev(self):
         globalsh.steptotake = self.scansrev_sdr.value()
         self.steps_lbl.setText(str(globalsh.steptotake))
@@ -138,20 +123,28 @@ class optWidget (QtGui.QWidget, opt_class):
     def set_resolution(self):
         reso = self.resoBox.currentIndex()
         if reso == 0:
-            cap.set(3,640)
-            cap.set(4,480)
-            camwidth = 640
-            camheight = 480
+#            cap.set(3,640)
+#            cap.set(4,480)
+            globalsh.camwidth = 640
+            globalsh.camheight = 480
+            #smokesignal.emit('capset_reso')
+            #smokesignal.emit('capset', 4, globalsh.camheigth)
         if reso == 1:
-            cap.set(3,800)
-            cap.set(4,600)
-            camwidth = 800
-            camheight = 600
+#            cap.set(3,800)
+#            cap.set(4,600)
+            globalsh.camwidth = 800
+            globalsh.camheight = 600
+            #smokesignal.emit('capset_reso')
+            #smokesignal.emit('capset', 4, globalsh.camheigth)
         if reso == 2:
-            cap.set(3,1280)
-            cap.set(4,960)
-            camwidth = 1280
-            camheight = 960
+#            cap.set(3,1280)
+#            cap.set(4,960)
+            globalsh.camwidth = 1280
+            globalsh.camheight = 960
+            #smokesignal.emit('capset_reso')
+            #smokesignal.emit('capset', 4, globalsh.camheigth)
+        smokesignal.emit('capset_reso')
+        smokesignal.emit('setborders')
     def getopt(self):
         #print 'yess'
         self.show()
@@ -162,41 +155,6 @@ class optWidget (QtGui.QWidget, opt_class):
         self.comBox.addItem(value) 
 
 
-form = MyWidget(None)
-opt = optWidget(None)
 
-@smokesignal.on('progress')
-def setbar(value):
-    form.progress(value)
-@smokesignal.on('lcd')
-def setlcd(value):
-    form.set_deg_lcd(value)
-@smokesignal.on('status')
-def setstatus(string):
-    form.status_lbl.setText(string)
-@smokesignal.on('scanbtnstate')
-def setscanbtnstate(state):
-    form.scanButton.setChecked(state)
-@smokesignal.on('btn_lock')
-def disable_btn():
-    opt.close()
-    form.turnButton.setEnabled(False) 
-    form.stepButton.setEnabled(False) 
-    form.toolButton.setEnabled(False) 
-    form.lLaserBox.setEnabled(False)
-    form.rLaserBox.setEnabled(False)
-    form.lft_rd_btn.setEnabled(False)
-    form.rgt_rd_btn.setEnabled(False)
-    form.dual_rd_btn.setEnabled(False)
-@smokesignal.on('btn_unlock')
-def enable_btn():
-    form.turnButton.setEnabled(True) 
-    form.stepButton.setEnabled(True) 
-    form.toolButton.setEnabled(True)
-    form.lLaserBox.setEnabled(True)
-    form.rLaserBox.setEnabled(True)
-    form.lft_rd_btn.setEnabled(True)
-    form.rgt_rd_btn.setEnabled(True)
-    form.dual_rd_btn.setEnabled(True)
 
 # import scan
