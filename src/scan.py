@@ -65,6 +65,8 @@ class scanthread(threading.Thread):
         self.z = 0
         self.camwidth = globalsh.camwidth
         self.camheight = globalsh.camheight
+        rowstotake = np.arange(self.uborder,int(self.camheight) - self.dborder)
+        colstotake = np.arange(self.lborder,int(self.camwidth) - self.rborder)
         self.stepangle = 2*self.pi/self.steptotake
         self.file_ana = open("scans\scn" + time.strftime("%Y_%m_%d_%H_%M") + ".asc", 'w')
         meiserial.laser(1,2)
@@ -77,14 +79,14 @@ class scanthread(threading.Thread):
             self.gray_image = cv2.cvtColor(self.feed, cv2.COLOR_BGR2GRAY)
             self.cur_angle = self.stepangle*self.stepnr
             #self.file_ana.write('scanning ' + str(math.degrees(self.cur_angle)) + ' degrees\n')
-            for self.row in np.arange(self.uborder,int(self.camheight) - self.dborder):
+            for self.row in rowstotake:
                 #print self.row
                 self.intensity = 0
                 self.lastmaxpix = 0
                 self.maxbrightpos = 0
-                for self.col in np.arange(self.lborder,int(self.camwidth) - self.rborder):
+                for self.col in colstotake:
                     #print self.col
-                    self.intensity = self.gray_image[self.row, self.col]
+                    self.intensity = self.gray_image.item(self.row, self.col)
                     #self.gray_anaimage[self.row,self.col] = 0
                     if self.intensity >= self.minpixbright:
                         if self.intensity >= self.lastmaxpix:

@@ -11,13 +11,13 @@ import globalsh
 from numpy import interp
 import time
 
-class capture(cv2.VideoCapture()):
-    def __init__(self):
-        self.set(3, 800)
-        self.set(4, 600)
-        self.camwidth = self.get(3)
-        self.camheight = self.get(4)
-        self.fps = self.get(5)
+#class capture(cv.VideoCapture()):
+#    def __init__(self):
+#        self.set(3, 800)
+#        self.set(4, 600)
+#        self.camwidth = self.get(3)
+#        self.camheight = self.get(4)
+#        self.fps = self.get(5)
 
 cap = cv2.VideoCapture(0)
 time.sleep(0.5)
