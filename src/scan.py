@@ -18,7 +18,7 @@ import numpy as np
 import capture
 from globalsh import *
 import globalsh
-
+import os
 
 def doscan():   #init the scan
     if globalsh.scan_active == False:
@@ -53,8 +53,8 @@ class scanthread(threading.Thread):     #scan class
         self.stepdelay = globalsh.stepdelay #ms
         self.steptotake = globalsh.steptotake
         self.barvalue = 0
-        self.picfile = "temp\image.png"
-        self.anafile = "temp\image2.png" 
+        #self.picfile = "temp\image.png"
+        #self.anafile = "temp\image2.png" 
         self.lborder = globalsh.lborder
         self.rborder = globalsh.rborder
         self.uborder = globalsh.uborder
@@ -68,7 +68,9 @@ class scanthread(threading.Thread):     #scan class
         rowstotake = np.arange(self.uborder,int(self.camheight) - self.dborder)
         colstotake = np.arange(self.lborder,int(self.camwidth) - self.rborder)
         self.stepangle = 2*self.pi/self.steptotake
-        self.file_ana = open("scans\scn" + time.strftime("%Y_%m_%d_%H_%M") + ".asc", 'w')
+        now_itis = time.strftime("%Y_%m_%d_%H_%M")
+        self.file_ana_stamp = str("scans\scn" + now_itis + ".asc")
+        self.file_ana = open("scans\scn" + now_itis + ".asc", "w")
         meiserial.laser(1,2)
         ret, self.anaimg = capture.cap.read()
         ret, self.feed = capture.cap.read()
@@ -101,7 +103,7 @@ class scanthread(threading.Thread):     #scan class
                         self.y=self.ro * math.sin(self.cur_angle) * 1
                         self.roz=self.ro * math.sin(self.cam_angle) * 1
                         self.z=self.row/self.v_pxmm + self.roz
-                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " \n")
+                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 0 255 0\n")
                         self.file_ana.write(self.txt)
                     if self.b < 0: #negative
                         self.b = self.b * -1
@@ -110,7 +112,7 @@ class scanthread(threading.Thread):     #scan class
                         self.y=self.ro * math.sin(self.cur_angle) * -1
                         self.roz=self.ro * math.sin(self.cam_angle) * -1
                         self.z=self.row/self.v_pxmm + self.roz
-                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " \n")
+                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 255 0 0\n")
                         self.file_ana.write(self.txt)
             meiserial.step(int(self.steps_rev/self.steptotake))    
             #time.sleep(self.stepdelay / 1000)
@@ -126,15 +128,33 @@ class scanthread(threading.Thread):     #scan class
             smokesignal.emit('status', 'scanning:')
             if globalsh.scan_active == False:
                 break
-        print 'scan done'
-        #mygui.setstatus('scan done')
-        smokesignal.emit('status', 'scan finished.')
+        
+        
         meiserial.step(int(self.steps_rev/globalsh.steptotake))
-        self.file_ana.close()
         meiserial.laser(1,0)
+        
+        self.file_ana.close()
+        self.file_asc = open("scans\scn" + now_itis + ".asc", "r")
+        num_vertex = sum(1 for line in self.file_asc if line.rstrip())
+        print 'analyzing..'
+        #mygui.setstatus('scan done')
+        smokesignal.emit('status', 'processing .ply')
+        self.file_ply_stamp = "scans\scn" + now_itis + ".ply"
+        with open("scans\scn" + now_itis + ".ply", 'w') as self.file_ply:
+            with open("scans\scn" + now_itis + ".asc", 'r') as self.file_asc:
+                self.header = open('plyheader.txt', 'r')
+                self.file_ply.write('ply\nformat ascii 1.0\ncomment VCGLIB generated\nelement vertex ' + str(num_vertex) + '\n')
+                for line in self.header:
+                    self.file_ply.write(line)
+                self.header.close()
+                for line in self.file_asc:
+                    self.file_ply.write(line)
+        
         globalsh.scan_active = False
         #mygui.enable_btn()
         smokesignal.emit('btn_unlock')
         #.setscanstate(False)
         smokesignal.emit('scanbtnstate', False)
+        smokesignal.emit('status', 'scan finished.')
+        os.system("start scans\scn" + now_itis + ".ply")
         #Charlie down!
