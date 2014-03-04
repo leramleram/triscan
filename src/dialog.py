@@ -13,15 +13,12 @@ dlg_class, base_class = uic.loadUiType("dlg.ui")
 class dlgWidget (QtGui.QDialog, dlg_class):     #warnings dialog
     def __init__(self,parent=None,selected=[],flag=0,*args):
         QtGui.QDialog.__init__(self,parent,*args)
-        #self.dialog = QtGui.QDialog(parent)
         self.setupUi(self)
     def getdlg(self,):
-        #self.setWindowTitle('meidialog')
         self.show()
-        
     def closedlg(self):
         self.close()
-
+        
 dlg = dlgWidget(None)
 
 @smokesignal.on('dialog')

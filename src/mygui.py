@@ -17,9 +17,7 @@ import cv2
 form_class, base_class = uic.loadUiType("main.ui")
 opt_class, base_class = uic.loadUiType("opt.ui")
 
-
 class MyWidget (QtGui.QWidget, form_class):         #Main window class
-    
     def __init__(self,parent=None,selected=[],flag=0,*args):
         QtGui.QWidget.__init__(self,parent,*args)
         self.setupUi(self)
@@ -153,8 +151,3 @@ class optWidget (QtGui.QWidget, opt_class):     #options window class
         self.close()  
     def setcombox(self, value):
         self.comBox.addItem(value) 
-
-
-
-
-# import scan

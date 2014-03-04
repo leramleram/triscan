@@ -20,7 +20,6 @@ def runprogram():
     form = MyWidget(None)
     opt = optWidget(None)
     
-    
     @smokesignal.on('killme')
     def killme():   #close the program
         opt.close()

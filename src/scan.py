@@ -14,7 +14,6 @@ import cv2
 import math
 from numpy import interp
 import numpy as np
-#from capture import cap
 import capture
 from globalsh import *
 import globalsh
@@ -26,19 +25,17 @@ def doscan():   #init the scan
         meiserial.laser(2,0)
         globalsh.scan_active = True
         scn = scanthread()
-        #mygui.disable_btn()
         smokesignal.emit('btn_lock')
         scn.start()
     else:
         globalsh.scan_active = False
-        #mygui.setbar(0)
         smokesignal.emit('progress', 0)
 class scanthread(threading.Thread):     #scan class
     def __init__(self):
         threading.Thread.__init__(self)
         self.pi = math.pi
-        self.h_pxmm = 2
-        self.v_pxmm = 2
+        self.h_pxmm = 1.5
+        self.v_pxmm = 1.5
         self.steps_rev = 400
         self.scan_active = False
         self.cam_angle = 12*self.pi/180
@@ -47,7 +44,6 @@ class scanthread(threading.Thread):     #scan class
         self.r_Laserangle = 28*self.pi/180
         self.steptotake = globalsh.steptotake
         self.stepangle = 2*self.pi/self.steptotake
-        #self.cap = cv2.VideoCapture(0)
         self.minpixbright = globalsh.minpixbright
         self.stepnr = 0
         self.stepdelay = globalsh.stepdelay #ms
@@ -59,6 +55,7 @@ class scanthread(threading.Thread):     #scan class
         self.rborder = globalsh.rborder
         self.uborder = globalsh.uborder
         self.dborder = globalsh.dborder
+        smokesignal.emit('status', 'scanning:')
     def run(self):          #go go go!
         self.x = 0
         self.y = 0
@@ -80,17 +77,14 @@ class scanthread(threading.Thread):     #scan class
             ret, self.feed = capture.cap.read()
             self.gray_image = cv2.cvtColor(self.feed, cv2.COLOR_BGR2GRAY)
             self.cur_angle = self.stepangle*self.stepnr
-            #self.file_ana.write('scanning ' + str(math.degrees(self.cur_angle)) + ' degrees\n')
             for self.row in rowstotake:     #iterate over all the rows of the picture
-                #print self.row
                 self.intensity = 0
                 self.lastmaxpix = 0
                 self.maxbrightpos = 0
                 for self.col in colstotake:     #iterate over all the columns of the picture
-                    #print self.col
                     self.intensity = self.gray_image.item(self.row, self.col)
                     #self.gray_anaimage[self.row,self.col] = 0
-                    if self.intensity >= self.minpixbright:     #lokk wich pixel was the brightest in this line
+                    if self.intensity >= self.minpixbright:     #look wich pixel was the brightest in this line
                         if self.intensity >= self.lastmaxpix:
                             self.lastmaxpix = self.intensity
                             self.maxbrightpos = self.col
@@ -115,24 +109,14 @@ class scanthread(threading.Thread):     #scan class
                         self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 255 0 0\n")
                         self.file_ana.write(self.txt)
             meiserial.step(int(self.steps_rev/self.steptotake))    
-            #time.sleep(self.stepdelay / 1000)
             #cv2.imwrite(anafile, gray_anaimage)
-            #print self.stepnr
-            #print self.cur_angle
             progBarV = interp(self.stepnr,[0,self.steptotake -1],[0,100])
-            #mygui.setbar(progBarV)
             smokesignal.emit('progress', progBarV)
-            #mygui.setlcd(math.degrees(self.cur_angle + self.stepangle))
             smokesignal.emit('lcd', math.degrees(self.cur_angle + self.stepangle))
-            #mygui.setstatus('scanning:')
-            smokesignal.emit('status', 'scanning:')
             if globalsh.scan_active == False:
                 break
-        
-        
         meiserial.step(int(self.steps_rev/globalsh.steptotake))
         meiserial.laser(1,0)
-        
         self.file_ana.close()
         self.file_asc = open("scans\scn" + now_itis + ".asc", "r")
         num_vertex = sum(1 for line in self.file_asc if line.rstrip())
@@ -149,11 +133,8 @@ class scanthread(threading.Thread):     #scan class
                 self.header.close()
                 for line in self.file_asc:
                     self.file_ply.write(line)
-        
         globalsh.scan_active = False
-        #mygui.enable_btn()
         smokesignal.emit('btn_unlock')
-        #.setscanstate(False)
         smokesignal.emit('scanbtnstate', False)
         smokesignal.emit('status', 'scan finished.')
         os.system("start scans\scn" + now_itis + ".ply")

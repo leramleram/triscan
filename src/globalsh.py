@@ -69,3 +69,12 @@ global camwidth
 global camheight
 camwidth = 800
 camheight = 600
+
+global X_plot
+global Y_plot
+global Z_plot
+global plotlock
+X_plot = [0]
+Y_plot = [0]
+Z_plot = [0]
+plotlock = False

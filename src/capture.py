@@ -11,21 +11,10 @@ import globalsh
 from numpy import interp
 import time
 
-#class capture(cv.VideoCapture()):
-#    def __init__(self):
-#        self.set(3, 800)
-#        self.set(4, 600)
-#        self.camwidth = self.get(3)
-#        self.camheight = self.get(4)
-#        self.fps = self.get(5)
-
 cap = cv2.VideoCapture(0)
 time.sleep(0.5)
 cap.set(3, globalsh.camwidth)
 cap.set(4, globalsh.camheight)
-#cap.camwidth = cap.get(3)
-#cap.camheight = cap.get(4)
-#cap.fps = cap.get(5)
 
 @smokesignal.on('capset_reso')
 def set_reso():     #set the resolution of the webcam
