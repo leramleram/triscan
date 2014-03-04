@@ -14,5 +14,14 @@ Maybe colour scanning will be possible in the future.
 
 Buildstage is very alpha yet, be warned!!
 
+Installation:
+
+>Install python(x,y) from http://code.google.com/p/pythonxy/wiki/Downloads
+>Copy the sketchfolder somewhere on your computer
+>Upload the arduino part
+>Start the main.py file from the sketchbookfolder
+
+
+
 Inspired by the tutorial of cube000.
-This is the initial commit.
+
