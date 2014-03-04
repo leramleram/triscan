@@ -16,10 +16,10 @@ Buildstage is very alpha yet, be warned!!
 
 Installation:
 
->Install python(x,y) from http://code.google.com/p/pythonxy/wiki/Downloads
->Copy the sketchfolder somewhere on your computer
->Upload the arduino part
->Start the main.py file from the sketchbookfolder
+->Install python(x,y) from http://code.google.com/p/pythonxy/wiki/Downloads
+->Copy the sketchfolder somewhere on your computer
+->Upload the arduino part
+->Start the main.py file from the sketchbookfolder
 
 
 
