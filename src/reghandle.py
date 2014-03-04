@@ -13,7 +13,7 @@ import smokesignal
 
 aReg = ConnectRegistry(None,HKEY_LOCAL_MACHINE)
 
-def read_reg():
+def read_reg():     #load all registry entrys
     try:
         root_key=OpenKey(HKEY_CURRENT_USER, r'SOFTWARE\CHAOSCOMPANY\cfg', 0, KEY_READ)
         [r_stepdelay,regtype]=(QueryValueEx(root_key,"stepdelay"))
@@ -48,7 +48,7 @@ def save_all():
     
     write_reg()
     
-def write_reg():
+def write_reg():        #write config to registry
     keyVal = r'SOFTWARE\CHAOSCOMPANY\cfg'
     try:
         key = OpenKey(HKEY_CURRENT_USER, keyVal, 0, KEY_ALL_ACCESS)
@@ -68,7 +68,7 @@ def write_reg():
     print 'keys written'
 
 @smokesignal.on('write_def_reg')
-def write_reg_default():
+def write_reg_default():        #write the default registry values 
     keyVal = r'SOFTWARE\CHAOSCOMPANY\cfg'
     try:
         key = OpenKey(HKEY_CURRENT_USER, keyVal, 0, KEY_ALL_ACCESS)

@@ -28,12 +28,12 @@ cap.set(4, globalsh.camheight)
 #cap.fps = cap.get(5)
 
 @smokesignal.on('capset_reso')
-def set_reso():
+def set_reso():     #set the resolution of the webcam
     cap.set(3, globalsh.camwidth)
     cap.set(4, globalsh.camheight)
     
 @smokesignal.on('refresh')    
-def refresh(state):
+def refresh(state):     #this is the loop for the liveview of the webcam
         cap.open(0)
         camstate = state
         cap.set(3, globalsh.camwidth)
@@ -61,7 +61,7 @@ def refresh(state):
                 break
             
 @smokesignal.on('setborders')
-def setborders():
+def setborders():       #take the values from the borders spinboxes and correct them against actual webcam resolution
     
     globalsh.lborder = int(interp(globalsh.lspinBox,[0,100],[0,globalsh.camwidth/2])) 
     globalsh.rborder = int(interp(globalsh.rspinBox,[0,100],[0,globalsh.camwidth/2]))

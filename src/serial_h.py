@@ -4,6 +4,7 @@ Created on Sat Feb 22 13:22:49 2014
 
 @author: christian
 """
+import platform
 import serial
 from serial import Serial
 import time
@@ -21,8 +22,8 @@ class serialh(serial.Serial):
         if globalsh.autocnct == 2:
             self.connect_p()
         
-    def list_serial_ports_p(self):
-        self.system_name = "Windows"
+    def list_serial_ports_p(self):  #check wich serial ports are available
+        self.system_name = platform.system()
         if self.system_name == "Windows":
             # Scan for available ports.
             self.available_p = []
@@ -41,7 +42,7 @@ class serialh(serial.Serial):
             # Assume Linux or something else
             return glob.glob('/dev/ttyS*') + glob.glob('/dev/ttyUSB*')
         
-    def connect_p(self):
+    def connect_p(self):    #nomen est omen
         try:
             self.ser = serial.Serial(str(self.port),baudrate=globalsh.baudrate)
             print("port " + self.port + "  opened successfully")
@@ -52,21 +53,21 @@ class serialh(serial.Serial):
             #mygui.get_dialog()
             smokesignal.emit('dialog')
          
-    def step(self, n):
+    def step(self, n):      #do some steps
         for i in range(n):
             self.ser.write("F")
             time.sleep(0.05)
             
-    def onestep(self):
+    def onestep(self):      #do a single step
         for i in range(1):
             self.ser.write("F")
             time.sleep(0.05)
             
-    def turn(self):
+    def turn(self):         #send the comand for 2 full spins
         self.ser.write("T")
         time.sleep(0.05)
         
-    def laser(self, n, v):
+    def laser(self, n, v):  #toggle the lasers
         if n == 0:
             if v == 2:
                 self.ser.write("L")

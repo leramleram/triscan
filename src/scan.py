@@ -20,7 +20,7 @@ from globalsh import *
 import globalsh
 
 
-def doscan():
+def doscan():   #init the scan
     if globalsh.scan_active == False:
         meiserial.laser(1,0)
         meiserial.laser(2,0)
@@ -33,7 +33,7 @@ def doscan():
         globalsh.scan_active = False
         #mygui.setbar(0)
         smokesignal.emit('progress', 0)
-class scanthread(threading.Thread):
+class scanthread(threading.Thread):     #scan class
     def __init__(self):
         threading.Thread.__init__(self)
         self.pi = math.pi
@@ -59,7 +59,7 @@ class scanthread(threading.Thread):
         self.rborder = globalsh.rborder
         self.uborder = globalsh.uborder
         self.dborder = globalsh.dborder
-    def run(self):        
+    def run(self):          #go go go!
         self.x = 0
         self.y = 0
         self.z = 0
@@ -74,21 +74,21 @@ class scanthread(threading.Thread):
         ret, self.feed = capture.cap.read()
         self.gray_anaimage = cv2.cvtColor(self.feed, cv2.COLOR_BGR2GRAY)
         #cv2.imwrite(picfile, gray_image)
-        for self.stepnr in np.arange(0, self.steptotake):
+        for self.stepnr in np.arange(0, self.steptotake):   #iterate over all steps to take for 360degrees
             ret, self.feed = capture.cap.read()
             self.gray_image = cv2.cvtColor(self.feed, cv2.COLOR_BGR2GRAY)
             self.cur_angle = self.stepangle*self.stepnr
             #self.file_ana.write('scanning ' + str(math.degrees(self.cur_angle)) + ' degrees\n')
-            for self.row in rowstotake:
+            for self.row in rowstotake:     #iterate over all the rows of the picture
                 #print self.row
                 self.intensity = 0
                 self.lastmaxpix = 0
                 self.maxbrightpos = 0
-                for self.col in colstotake:
+                for self.col in colstotake:     #iterate over all the columns of the picture
                     #print self.col
                     self.intensity = self.gray_image.item(self.row, self.col)
                     #self.gray_anaimage[self.row,self.col] = 0
-                    if self.intensity >= self.minpixbright:
+                    if self.intensity >= self.minpixbright:     #lokk wich pixel was the brightest in this line
                         if self.intensity >= self.lastmaxpix:
                             self.lastmaxpix = self.intensity
                             self.maxbrightpos = self.col
@@ -137,3 +137,4 @@ class scanthread(threading.Thread):
         smokesignal.emit('btn_unlock')
         #.setscanstate(False)
         smokesignal.emit('scanbtnstate', False)
+        #Charlie down!

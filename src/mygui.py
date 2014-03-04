@@ -18,7 +18,7 @@ form_class, base_class = uic.loadUiType("main.ui")
 opt_class, base_class = uic.loadUiType("opt.ui")
 
 
-class MyWidget (QtGui.QWidget, form_class):
+class MyWidget (QtGui.QWidget, form_class):         #Main window class
     
     def __init__(self,parent=None,selected=[],flag=0,*args):
         QtGui.QWidget.__init__(self,parent,*args)
@@ -45,7 +45,7 @@ class MyWidget (QtGui.QWidget, form_class):
     def refresh(self):
         smokesignal.emit('refresh', self.camBox.checkState())
             
-class optWidget (QtGui.QWidget, opt_class):
+class optWidget (QtGui.QWidget, opt_class):     #options window class
     def __init__(self,parent=None,selected=[],flag=0,*args):
         QtGui.QWidget.__init__(self,parent,*args)
         self.setupUi(self)
