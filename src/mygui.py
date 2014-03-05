@@ -24,14 +24,8 @@ class MyWidget (QtGui.QWidget, form_class):         #Main window class
         self.status_lbl.setText('ready for rumble!')
     def update_bar(self):
         self.progressBar.setValue(progBarV)
-    def initscan(self):
-        if scan_active == False:
-            doscan()
-        else:
-            stopscan()
     def __del__(self):
         print 'pfiati'
-    
     def step(self):
         step(2)
     def turn(self):

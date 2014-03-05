@@ -11,7 +11,9 @@ def runprogram():
     import smokesignal
     app = QtGui.QApplication(sys.argv)
     import reghandle
-    reghandle.read_reg()
+    import cfg_storage
+    #reghandle.read_reg()
+    smokesignal.emit('read_json')
     from serial_h import meiserial
     import capture
     import scan
@@ -57,15 +59,22 @@ def runprogram():
         form.lft_rd_btn.setEnabled(True)
         form.rgt_rd_btn.setEnabled(True)
         form.dual_rd_btn.setEnabled(True)
-        
+    def initscan():
+        if form.rgt_rd_btn.isChecked() == True:
+            scan.doscan('r')
+        elif form.lft_rd_btn.isChecked() == True:
+            scan.doscan('l')
+        elif form.dual_rd_btn.isChecked() == True:
+            scan.doscan('d')
+
     form.connect(form.toolButton, QtCore.SIGNAL('clicked()'), opt.getopt)
     form.connect(form.stepButton, QtCore.SIGNAL('clicked()'), meiserial.onestep)
     form.connect(form.turnButton, QtCore.SIGNAL('clicked()'), meiserial.turn)
-    form.connect(form.scanButton, QtCore.SIGNAL('clicked()'), scan.doscan)
+    form.connect(form.scanButton, QtCore.SIGNAL('clicked()'), initscan)
     form.lLaserBox.clicked.connect(lambda:  meiserial.laser(0,int(form.lLaserBox.checkState())))
     form.rLaserBox.clicked.connect(lambda:  meiserial.laser(1,int(form.rLaserBox.checkState())))
     form.connect(form.camBox, QtCore.SIGNAL('clicked()'), form.refresh)
-    opt.connect(opt.saveButton, QtCore.SIGNAL('clicked()'), reghandle.save_all)
+    opt.connect(opt.saveButton, QtCore.SIGNAL('clicked()'), cfg_storage.write_file)
     opt.connect(opt.connectBtn, QtCore.SIGNAL('clicked()'), meiserial.connect_p)
     opt.connect(opt.connectBox, QtCore.SIGNAL('clicked()'), opt.setautocnct)
     form.show()     #main window

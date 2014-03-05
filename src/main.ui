@@ -71,6 +71,9 @@
      <property name="text">
       <string>Left</string>
      </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QRadioButton" name="rgt_rd_btn">
      <property name="geometry">

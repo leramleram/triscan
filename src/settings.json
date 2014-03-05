@@ -1,0 +1,12 @@
+{
+  "baudrate": 9600, 
+  "autocnct": 2, 
+  "uspinBox": 53, 
+  "steptotake": 400, 
+  "lspinBox": 71, 
+  "minpixbright": 207, 
+  "rspinBox": 82, 
+  "comport": 15, 
+  "stepdelay": 224, 
+  "dspinBox": 58
+}
