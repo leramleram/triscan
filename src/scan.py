@@ -79,7 +79,7 @@ class scanthread_r(threading.Thread):     #scan class right laser
         self.stepangle = 2*self.pi/self.steptotake
         now_itis = time.strftime("%Y_%m_%d_%H_%M")
         self.file_ana = open("scans\scn" + now_itis + "_r.asc", "w")
-        meiserial.laser(1,2)
+        meiserial.laser(1,1)
         ret, self.anaimg = capture.cap.read()
         ret, self.feed = capture.cap.read()
         self.gray_anaimage = cv2.cvtColor(self.feed, cv2.COLOR_BGR2GRAY)
@@ -189,7 +189,7 @@ class scanthread_l(threading.Thread):     #scan class       #left laser
         self.stepangle = 2*self.pi/self.steptotake
         now_itis = time.strftime("%Y_%m_%d_%H_%M")
         self.file_ana = open("scans\scn" + now_itis + "_l.asc", "w")
-        meiserial.laser(0,2)
+        meiserial.laser(0,1)
         ret, self.anaimg = capture.cap.read()
         ret, self.feed = capture.cap.read()
         self.gray_anaimage = cv2.cvtColor(self.feed, cv2.COLOR_BGR2GRAY)
@@ -300,7 +300,7 @@ class scanthread_d(threading.Thread):     #scan class     #dual laser mode it is
         self.stepangle = 2*self.pi/self.steptotake
         now_itis = time.strftime("%Y_%m_%d_%H_%M")
         self.file_ana = open("scans\scn" + now_itis + "_d.asc", "w")
-        meiserial.laser(1,2)
+        meiserial.laser(1,1)
         ret, self.anaimg = capture.cap.read()
         ret, self.feed = capture.cap.read()
         self.gray_anaimage = cv2.cvtColor(self.feed, cv2.COLOR_BGR2GRAY)

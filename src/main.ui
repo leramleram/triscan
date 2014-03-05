@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>300</width>
-    <height>240</height>
+    <width>274</width>
+    <height>249</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,8 +21,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>281</width>
-     <height>221</height>
+     <width>256</width>
+     <height>231</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -34,8 +34,8 @@
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>100</y>
+      <x>70</x>
+      <y>95</y>
       <width>171</width>
       <height>51</height>
      </rect>
@@ -107,7 +107,7 @@
      <rect>
       <x>10</x>
       <y>60</y>
-      <width>171</width>
+      <width>166</width>
       <height>31</height>
      </rect>
     </property>
@@ -138,11 +138,14 @@
    <widget class="QToolButton" name="toolButton">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>100</y>
+      <x>20</x>
+      <y>105</y>
       <width>36</width>
       <height>36</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>Options Menue</string>
     </property>
     <property name="text">
      <string/>
@@ -162,8 +165,8 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>190</y>
-      <width>271</width>
+      <y>200</y>
+      <width>251</width>
       <height>21</height>
      </rect>
     </property>
@@ -171,28 +174,41 @@
      <number>0</number>
     </property>
    </widget>
-   <widget class="QCheckBox" name="camBox">
+   <widget class="QPushButton" name="camBox">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>160</y>
-      <width>70</width>
-      <height>17</height>
+      <x>140</x>
+      <y>150</y>
+      <width>36</width>
+      <height>36</height>
      </rect>
     </property>
     <property name="toolTip">
-     <string>live view</string>
+     <string>Webcam toggle</string>
     </property>
     <property name="text">
-     <string>Webcam</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources/resources.qrc">
+      <normaloff>:/glossy_2_48x48/png_2/48x48/Youtube.png</normaloff>:/glossy_2_48x48/png_2/48x48/Youtube.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLCDNumber" name="deg_lcd">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>180</x>
       <y>60</y>
-      <width>71</width>
+      <width>61</width>
       <height>31</height>
      </rect>
     </property>
@@ -215,7 +231,7 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>265</x>
+      <x>245</x>
       <y>59</y>
       <width>41</width>
       <height>21</height>
@@ -230,30 +246,62 @@
      <string>°</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="rLaserBox">
+   <widget class="QPushButton" name="rLaserBox">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>160</y>
-      <width>70</width>
-      <height>17</height>
+      <x>180</x>
+      <y>150</y>
+      <width>36</width>
+      <height>36</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>right Laser toggle</string>
+    </property>
     <property name="text">
-     <string>right Laser</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources/resources.qrc">
+      <normaloff>:/48x48/png/48x48/Next.png</normaloff>:/48x48/png/48x48/Next.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
     </property>
    </widget>
-   <widget class="QCheckBox" name="lLaserBox">
+   <widget class="QPushButton" name="lLaserBox">
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>160</y>
-      <width>70</width>
-      <height>17</height>
+      <y>150</y>
+      <width>36</width>
+      <height>36</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>left Laser toggle</string>
+    </property>
     <property name="text">
-     <string>left Laser</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources/resources.qrc">
+      <normaloff>:/48x48/png/48x48/Previous.png</normaloff>:/48x48/png/48x48/Previous.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QFrame" name="frame_7">
@@ -274,9 +322,9 @@
     <widget class="QCommandLinkButton" name="scanButton">
      <property name="geometry">
       <rect>
-       <x>180</x>
+       <x>170</x>
        <y>2</y>
-       <width>101</width>
+       <width>86</width>
        <height>49</height>
       </rect>
      </property>
@@ -288,7 +336,8 @@
      </property>
      <property name="icon">
       <iconset resource="../resources/resources.qrc">
-       <normaloff>:/glossy_2_48x48/png_2/48x48/Radar.png</normaloff>:/glossy_2_48x48/png_2/48x48/Radar.png</iconset>
+       <normaloff>:/glossy_2_48x48/png_2/48x48/Steering wheel.png</normaloff>
+       <activeon>:/48x48/png/48x48/Stop.png</activeon>:/glossy_2_48x48/png_2/48x48/Steering wheel.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -314,7 +363,7 @@
       <rect>
        <x>0</x>
        <y>2</y>
-       <width>90</width>
+       <width>81</width>
        <height>49</height>
       </rect>
      </property>
@@ -326,7 +375,7 @@
      </property>
      <property name="icon">
       <iconset resource="../resources/resources.qrc">
-       <normaloff>:/48x48/png/48x48/Next.png</normaloff>:/48x48/png/48x48/Next.png</iconset>
+       <normaloff>:/48x48/png/48x48/Forward.png</normaloff>:/48x48/png/48x48/Forward.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -338,9 +387,9 @@
     <widget class="QCommandLinkButton" name="turnButton">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>85</x>
        <y>2</y>
-       <width>90</width>
+       <width>81</width>
        <height>49</height>
       </rect>
      </property>
@@ -352,7 +401,7 @@
      </property>
      <property name="icon">
       <iconset resource="../resources/resources.qrc">
-       <normaloff>:/48x48/png/48x48/Renew.png</normaloff>:/48x48/png/48x48/Renew.png</iconset>
+       <normaloff>:/48x48/png/48x48/Repeat.png</normaloff>:/48x48/png/48x48/Repeat.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -362,30 +411,33 @@
      </property>
     </widget>
    </widget>
-   <widget class="QToolButton" name="execButton">
+   <widget class="QPushButton" name="execButton">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>100</y>
+      <x>20</x>
+      <y>150</y>
       <width>36</width>
       <height>36</height>
      </rect>
     </property>
     <property name="toolTip">
-     <string>open the file in the standard program for this filetype</string>
+     <string>open the last scan file in the standard program for this filetype</string>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="icon">
      <iconset resource="../resources/resources.qrc">
-      <normaloff>:/glossy_2_48x48/png_2/48x48/Solar system.png</normaloff>:/glossy_2_48x48/png_2/48x48/Solar system.png</iconset>
+      <normaloff>:/48x48/png/48x48/View.png</normaloff>:/48x48/png/48x48/View.png</iconset>
     </property>
     <property name="iconSize">
      <size>
       <width>24</width>
       <height>24</height>
      </size>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
     </property>
    </widget>
   </widget>

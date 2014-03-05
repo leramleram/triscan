@@ -35,7 +35,7 @@ class MyWidget (QtGui.QWidget, form_class):         #Main window class
     def set_deg_lcd(self, value):
         self.deg_lcd.display(value)
     def refresh(self):
-        smokesignal.emit('refresh', self.camBox.checkState())
+        smokesignal.emit('refresh', self.camBox.isChecked())
             
 class optWidget (QtGui.QWidget, opt_class):     #options window class
     def __init__(self,parent=None,selected=[],flag=0,*args):

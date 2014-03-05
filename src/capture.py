@@ -31,7 +31,7 @@ def refresh(state):     #this is the loop for the liveview of the webcam
         if camstate == 0:
             cv2.destroyAllWindows()
             camBox.setCheckState(0)
-        while camstate == 2:
+        while camstate == 1:
             #print 'yoaha'
             ret, feed = cap.read()  #first we draw a cross in the middle of the video frame
             cv2.line(feed,(int(globalsh.camwidth / 2),0),(int(globalsh.camwidth/2),int(globalsh.camheight)),(255,0,0),2)
