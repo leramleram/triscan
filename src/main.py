@@ -10,9 +10,7 @@ def runprogram():
     import sys
     import smokesignal
     app = QtGui.QApplication(sys.argv)
-    import reghandle
     import cfg_storage
-    #reghandle.read_reg()
     smokesignal.emit('read_json')
     from serial_h import meiserial
     import capture

@@ -8,7 +8,6 @@ Created on Tue Feb 25 19:08:26 2014
 global scan_active
 scan_active = False
 
-global cap
 global lspinBox
 global rspinBox
 global uspinBox

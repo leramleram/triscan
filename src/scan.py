@@ -103,7 +103,7 @@ class scanthread_r(threading.Thread):     #scan class right laser
                         self.y=self.ro * math.sin(self.cur_angle) * 1
                         self.roz=self.ro * math.sin(self.cam_angle) * 1
                         self.z=self.row/self.v_pxmm + self.roz
-                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 0 255 0\n")
+                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 255 0 0\n")
                         self.file_ana.write(self.txt)
                     if self.b < 0: #negative
                         self.b = self.b * -1
@@ -112,7 +112,7 @@ class scanthread_r(threading.Thread):     #scan class right laser
                         self.y=self.ro * math.sin(self.cur_angle) * -1
                         self.roz=self.ro * math.sin(self.cam_angle) * -1
                         self.z=self.row/self.v_pxmm + self.roz
-                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 255 0 0\n")
+                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 255 255 0\n")
                         self.file_ana.write(self.txt)
             meiserial.step(int(self.steps_rev/self.steptotake))    
             #cv2.imwrite(anafile, gray_anaimage)
@@ -213,7 +213,7 @@ class scanthread_l(threading.Thread):     #scan class       #left laser
                         self.y=self.ro * math.sin(self.cur_angle) * 1
                         self.roz=self.ro * math.sin(self.cam_angle) * 1
                         self.z=self.row/self.v_pxmm + self.roz
-                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 0 255 0\n")
+                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 255 0 0\n")
                         self.file_ana.write(self.txt)
                     if self.b < 0: #negative
                         self.b = self.b * -1
@@ -222,7 +222,7 @@ class scanthread_l(threading.Thread):     #scan class       #left laser
                         self.y=self.ro * math.sin(self.cur_angle) * -1
                         self.roz=self.ro * math.sin(self.cam_angle) * -1
                         self.z=self.row/self.v_pxmm + self.roz
-                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 255 0 0\n")
+                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 255 255 0\n")
                         self.file_ana.write(self.txt)
             meiserial.step(int(self.steps_rev/self.steptotake))    
             #cv2.imwrite(anafile, gray_anaimage)
