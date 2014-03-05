@@ -35,3 +35,8 @@ def read_file():
         with open('settings.json', 'w') as f:
             json.dump(entry, f, indent = 2)
         print 'defaults written'
+    except IOError:
+        entry = {'stepdelay' : int(globalsh.stepdelay), 'steptotake' : int(globalsh.steptotake), 'lspinBox' : int(globalsh.lspinBox), 'rspinBox' : int(globalsh.rspinBox), 'uspinBox' : int(globalsh.uspinBox), 'dspinBox' : int(globalsh.dspinBox), 'comport' : int(globalsh.comport), 'baudrate' : int(globalsh.baudrate), 'autocnct' : int(globalsh.autocnct), 'minpixbright' : int(globalsh.minpixbright)}
+        with open('settings.json', 'w') as f:
+            json.dump(entry, f, indent = 2)
+        print 'defaults written'

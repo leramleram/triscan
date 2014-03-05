@@ -315,9 +315,6 @@
       <property name="value">
        <number>0</number>
       </property>
-      <property name="displayIntegerBase">
-       <number>10</number>
-      </property>
      </widget>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
