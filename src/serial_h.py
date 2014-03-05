@@ -15,6 +15,7 @@ import globalsh
             
 class serialh(serial.Serial):
     def __init__(self):
+        self.connected = False
         serial.Serial.__init__(self)
         self.list_serial_ports_p()
         time.sleep(0.5)
@@ -46,9 +47,12 @@ class serialh(serial.Serial):
         try:
             self.ser = serial.Serial(str(self.port),baudrate=globalsh.baudrate)
             print("port " + self.port + "  opened successfully")
+            self.connected = True
+            smokesignal.emit('btn_unlock')
         except serial.SerialException:
             print ('the requested serial port ' + str(self.port) + ' could not be opened')
-            globalsh.dlg_txt = 'serial port could not be opened, the program will likely not work'
+            globalsh.dlg_title = 'warning!'
+            globalsh.dlg_txt = 'serial port ' + str(self.port) + ' could not be opened, the program will likely not work before you connect to a proper device'
             globalsh.dlg_issue = 'ser'
             #mygui.get_dialog()
             smokesignal.emit('dialog')

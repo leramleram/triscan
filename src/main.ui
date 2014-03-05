@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>239</height>
+    <height>240</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -140,21 +140,21 @@
      <rect>
       <x>190</x>
       <y>100</y>
-      <width>51</width>
-      <height>51</height>
+      <width>36</width>
+      <height>36</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="resources.qrc">
+     <iconset resource="../resources/resources.qrc">
       <normaloff>:/48x48/png/48x48/System.png</normaloff>:/48x48/png/48x48/System.png</iconset>
     </property>
     <property name="iconSize">
      <size>
-      <width>32</width>
-      <height>32</height>
+      <width>24</width>
+      <height>24</height>
      </size>
     </property>
    </widget>
@@ -215,10 +215,10 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>60</y>
+      <x>265</x>
+      <y>59</y>
       <width>41</width>
-      <height>20</height>
+      <height>21</height>
      </rect>
     </property>
     <property name="font">
@@ -287,9 +287,8 @@
       <string>Scan</string>
      </property>
      <property name="icon">
-      <iconset resource="resources.qrc">
-       <normaloff>:/48x48/png/48x48/View.png</normaloff>
-       <normalon>:/48x48/png/48x48/Close.png</normalon>:/48x48/png/48x48/View.png</iconset>
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/glossy_2_48x48/png_2/48x48/Radar.png</normaloff>:/glossy_2_48x48/png_2/48x48/Radar.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -326,7 +325,7 @@
       <string>Step</string>
      </property>
      <property name="icon">
-      <iconset resource="resources.qrc">
+      <iconset resource="../resources/resources.qrc">
        <normaloff>:/48x48/png/48x48/Next.png</normaloff>:/48x48/png/48x48/Next.png</iconset>
      </property>
      <property name="iconSize">
@@ -352,7 +351,7 @@
       <string>Turn</string>
      </property>
      <property name="icon">
-      <iconset resource="resources.qrc">
+      <iconset resource="../resources/resources.qrc">
        <normaloff>:/48x48/png/48x48/Renew.png</normaloff>:/48x48/png/48x48/Renew.png</iconset>
      </property>
      <property name="iconSize">
@@ -363,10 +362,36 @@
      </property>
     </widget>
    </widget>
+   <widget class="QToolButton" name="execButton">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>100</y>
+      <width>36</width>
+      <height>36</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>open the file in the standard program for this filetype</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources/resources.qrc">
+      <normaloff>:/glossy_2_48x48/png_2/48x48/Solar system.png</normaloff>:/glossy_2_48x48/png_2/48x48/Solar system.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -19,7 +19,6 @@ def runprogram():
     
     form = MyWidget(None)
     opt = optWidget(None)
-    
     @smokesignal.on('killme')
     def killme():   #close the program
         opt.close()
@@ -41,7 +40,7 @@ def runprogram():
         opt.close()
         form.turnButton.setEnabled(False) 
         form.stepButton.setEnabled(False) 
-        form.toolButton.setEnabled(False) 
+        #form.toolButton.setEnabled(False) 
         form.lLaserBox.setEnabled(False)
         form.rLaserBox.setEnabled(False)
         form.lft_rd_btn.setEnabled(False)
@@ -51,12 +50,13 @@ def runprogram():
     def enable_btn():   #unlock the buttons
         form.turnButton.setEnabled(True) 
         form.stepButton.setEnabled(True) 
-        form.toolButton.setEnabled(True)
+        #form.toolButton.setEnabled(True)
         form.lLaserBox.setEnabled(True)
         form.rLaserBox.setEnabled(True)
         form.lft_rd_btn.setEnabled(True)
         form.rgt_rd_btn.setEnabled(True)
         form.dual_rd_btn.setEnabled(True)
+        form.scanButton.setEnabled(True)
     def initscan():
         if form.rgt_rd_btn.isChecked() == True:
             scan.doscan('r')
@@ -66,6 +66,7 @@ def runprogram():
             scan.doscan('d')
 
     form.connect(form.toolButton, QtCore.SIGNAL('clicked()'), opt.getopt)
+    form.connect(form.execButton, QtCore.SIGNAL('clicked()'), scan.openfile)
     form.connect(form.stepButton, QtCore.SIGNAL('clicked()'), meiserial.onestep)
     form.connect(form.turnButton, QtCore.SIGNAL('clicked()'), meiserial.turn)
     form.connect(form.scanButton, QtCore.SIGNAL('clicked()'), initscan)
@@ -75,10 +76,15 @@ def runprogram():
     opt.connect(opt.saveButton, QtCore.SIGNAL('clicked()'), cfg_storage.write_file)
     opt.connect(opt.connectBtn, QtCore.SIGNAL('clicked()'), meiserial.connect_p)
     opt.connect(opt.connectBox, QtCore.SIGNAL('clicked()'), opt.setautocnct)
+       
     form.show()     #main window
     form.move(20,20)
     form.show()
     form.progress(0)
+    if meiserial.connected == False:
+        disable_btn()
+        form.scanButton.setEnabled(False)
+        smokesignal.emit('status', 'no serial connection')
     app.exec_()
 
 if __name__ == '__main__':

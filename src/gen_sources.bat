@@ -1,1 +1,0 @@
-pyrcc4 -py3 C:\Users\christian\Documents\GitHub\triscan\src\resources.qrc -o C:\Users\christian\Documents\GitHub\triscan\src\resources_rc.py

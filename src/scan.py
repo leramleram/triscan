@@ -19,6 +19,11 @@ from globalsh import *
 import globalsh
 import os
 
+
+
+smokesignal.on('openfile')
+def openfile():
+    os.system(globalsh.filestamp)
 def doscan(mode):   #init the scan
     if globalsh.scan_active == False:
         meiserial.laser(1,0)
@@ -130,6 +135,7 @@ class scanthread_r(threading.Thread):     #scan class right laser
         #mygui.setstatus('scan done')
         smokesignal.emit('status', 'processing .ply')
         self.file_ply_stamp = "scans\scn" + now_itis + "_r.ply"
+        globalsh.filestamp = str(self.file_ply_stamp)
         with open("scans\scn" + now_itis + "_r.ply", 'w') as self.file_ply:
             with open("scans\scn" + now_itis + "_r.asc", 'r') as self.file_asc:
                 self.header = open('plyheader.txt', 'r')
@@ -143,7 +149,7 @@ class scanthread_r(threading.Thread):     #scan class right laser
         smokesignal.emit('btn_unlock')
         smokesignal.emit('scanbtnstate', False)
         smokesignal.emit('status', 'scan finished.')
-        os.system("start scans\scn" + now_itis + "_r.ply")
+        
         #Charlie down!      #end of rightmode_scan
 
 class scanthread_l(threading.Thread):     #scan class       #left laser
@@ -173,7 +179,6 @@ class scanthread_l(threading.Thread):     #scan class       #left laser
         self.dborder = globalsh.dborder
         smokesignal.emit('status', 'scanning:')
     def run(self):          #go go go!
-        print 'left!!'
         self.x = 0
         self.y = 0
         self.z = 0
@@ -207,22 +212,22 @@ class scanthread_l(threading.Thread):     #scan class       #left laser
                 #self.gray_anaimage[self.row, self.maxbrightpos] = 255
                 if self.maxbrightpos > 0:                    
                     self.b = ((self.maxbrightpos + 1)-self.camwidth/2)/self.h_pxmm
-                    if self.b > 0: #positive
+                    if self.b > 0:                                                  #positive
                         self.ro=self.b/math.sin(self.r_Laserangle)
                         self.x=self.ro * math.cos(self.cur_angle) * -1
                         self.y=self.ro * math.sin(self.cur_angle) * 1
                         self.roz=self.ro * math.sin(self.cam_angle) * 1
                         self.z=self.row/self.v_pxmm + self.roz
-                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 255 0 0\n")
+                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 255 255 0\n")
                         self.file_ana.write(self.txt)
-                    if self.b < 0: #negative
+                    if self.b < 0:                                                  #negative
                         self.b = self.b * -1
                         self.ro=self.b/math.sin(self.r_Laserangle)
                         self.x=self.ro * math.cos(self.cur_angle) * 1
                         self.y=self.ro * math.sin(self.cur_angle) * -1
                         self.roz=self.ro * math.sin(self.cam_angle) * -1
                         self.z=self.row/self.v_pxmm + self.roz
-                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 255 255 0\n")
+                        self.txt = (str(self.x) + " " + str(self.y) + " " + str(self.z) + " 255 0 0\n")
                         self.file_ana.write(self.txt)
             meiserial.step(int(self.steps_rev/self.steptotake))    
             #cv2.imwrite(anafile, gray_anaimage)
@@ -232,7 +237,7 @@ class scanthread_l(threading.Thread):     #scan class       #left laser
             if globalsh.scan_active == False:
                 break
         meiserial.step(int(self.steps_rev/globalsh.steptotake))
-        meiserial.laser(1,0)
+        meiserial.laser(0,0)
         self.file_ana.close()
         self.file_asc = open("scans\scn" + now_itis + "_l.asc", "r")
         num_vertex = sum(1 for line in self.file_asc if line.rstrip())
@@ -240,6 +245,7 @@ class scanthread_l(threading.Thread):     #scan class       #left laser
         #mygui.setstatus('scan done')
         smokesignal.emit('status', 'processing .ply')
         self.file_ply_stamp = "scans\scn" + now_itis + "_l.ply"
+        globalsh.filestamp = str(self.file_ply_stamp)
         with open("scans\scn" + now_itis + "_l.ply", 'w') as self.file_ply:
             with open("scans\scn" + now_itis + "_l.asc", 'r') as self.file_asc:
                 self.header = open('plyheader.txt', 'r')
@@ -253,7 +259,7 @@ class scanthread_l(threading.Thread):     #scan class       #left laser
         smokesignal.emit('btn_unlock')
         smokesignal.emit('scanbtnstate', False)
         smokesignal.emit('status', 'scan finished.')
-        os.system("start scans\scn" + now_itis + "_l.ply")
+        
         #Charlie down!    #end of leftmode_scan
 
 class scanthread_d(threading.Thread):     #scan class     #dual laser mode it is
@@ -350,6 +356,7 @@ class scanthread_d(threading.Thread):     #scan class     #dual laser mode it is
         #mygui.setstatus('scan done')
         smokesignal.emit('status', 'processing .ply')
         self.file_ply_stamp = "scans\scn" + now_itis + "_d.ply"
+        globalsh.filestamp = str(self.file_ply_stamp)
         with open("scans\scn" + now_itis + "_d.ply", 'w') as self.file_ply:
             with open("scans\scn" + now_itis + "_d.asc", 'r') as self.file_asc:
                 self.header = open('plyheader.txt', 'r')
@@ -363,5 +370,5 @@ class scanthread_d(threading.Thread):     #scan class     #dual laser mode it is
         smokesignal.emit('btn_unlock')
         smokesignal.emit('scanbtnstate', False)
         smokesignal.emit('status', 'scan finished.')
-        os.system("start scans\scn" + now_itis + "_d.ply")
+        
         #Charlie down!      #end of dualmode_scan
