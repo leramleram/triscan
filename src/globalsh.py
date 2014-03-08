@@ -13,10 +13,10 @@ global rspinBox
 global uspinBox
 global dspinBox
 
-lspinBox = 21
-rspinBox = 22
-uspinBox = 23
-dspinBox = 24
+lspinBox = 76
+rspinBox = 77
+uspinBox = 60
+dspinBox = 59
 
 global lborder
 global rborder
@@ -36,7 +36,7 @@ global steps_rev
 global steptotake
 global stepdelay
 steps_rev = 400
-steptotake = 10
+steptotake = 400
 stepdelay = 220
 
 global dlg_title
@@ -62,12 +62,23 @@ baudrate = 9600
 baudlist = ('4800', '9600', '19200', '38400', '57600', '115200')
 
 global minpixbright
-minpixbright = 20
+minpixbright = 90
 
 global camwidth 
 global camheight
+global cambright
+global camexpo
 camwidth = 800
 camheight = 600
+cambright = 195
+camexpo = 50
+
+global l_angle
+global r_angle
+global cam_angle
+l_angle = 32.0
+r_angle = 32.0
+cam_angle = 10.0
 
 global filestamp
 filestamp = 'no_file_stamp'

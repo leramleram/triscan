@@ -8,10 +8,11 @@
 #############
 ## Scan files
 #############
-
+*.ana
 *.asc
 *.ply
-
+*.anal
+*.anar
 #############
 ## pictures
 #############
@@ -27,3 +28,12 @@
 #############
 *.json
 *.bat
+*.exe
+*.dll
+*.toc
+*.pyz
+*.pkg
+*.log
+*.manifest
+*.txt
+*.spec

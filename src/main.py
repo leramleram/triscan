@@ -12,13 +12,18 @@ def runprogram():
     app = QtGui.QApplication(sys.argv)
     import cfg_storage
     smokesignal.emit('read_json')
-    from serial_h import meiserial
+    from ardu import meiserial
     import capture
     import scan
     from mygui import MyWidget, optWidget
+    import numpy
+    import serial
     
     form = MyWidget(None)
     opt = optWidget(None)
+    
+    form.execButton.setEnabled(False)
+    
     @smokesignal.on('killme')
     def killme():   #close the program
         opt.close()
@@ -46,6 +51,7 @@ def runprogram():
         form.lft_rd_btn.setEnabled(False)
         form.rgt_rd_btn.setEnabled(False)
         form.dual_rd_btn.setEnabled(False)
+        form.lightBox.setEnabled(False)
     @smokesignal.on('btn_unlock')
     def enable_btn():   #unlock the buttons
         form.turnButton.setEnabled(True) 
@@ -57,6 +63,8 @@ def runprogram():
         form.rgt_rd_btn.setEnabled(True)
         form.dual_rd_btn.setEnabled(True)
         form.scanButton.setEnabled(True)
+        form.lightBox.setEnabled(True)
+        form.execButton.setEnabled(True)
     def initscan():
         if form.rgt_rd_btn.isChecked() == True:
             scan.doscan('r')
@@ -72,6 +80,7 @@ def runprogram():
     form.connect(form.scanButton, QtCore.SIGNAL('clicked()'), initscan)
     form.lLaserBox.clicked.connect(lambda:  meiserial.laser(0,int(form.lLaserBox.isChecked())))
     form.rLaserBox.clicked.connect(lambda:  meiserial.laser(1,int(form.rLaserBox.isChecked())))
+    form.lightBox.clicked.connect(lambda:  meiserial.light(int(form.lightBox.isChecked())))
     form.connect(form.camBox, QtCore.SIGNAL('clicked()'), form.refresh)
     opt.connect(opt.saveButton, QtCore.SIGNAL('clicked()'), cfg_storage.write_file)
     opt.connect(opt.connectBtn, QtCore.SIGNAL('clicked()'), meiserial.connect_p)
@@ -84,9 +93,12 @@ def runprogram():
     if meiserial.connected == False:
         disable_btn()
         form.scanButton.setEnabled(False)
+        form.execButton.setEnabled(False)
         smokesignal.emit('status', 'no serial connection')
     app.exec_()
-
+    if True:
+        meiserial.__del__()
+        form.__del__()
 if __name__ == '__main__':
     runprogram() 
     

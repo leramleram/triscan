@@ -68,11 +68,14 @@
        <height>17</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>single left scanmode</string>
+     </property>
      <property name="text">
       <string>Left</string>
      </property>
      <property name="checked">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QRadioButton" name="rgt_rd_btn">
@@ -83,6 +86,9 @@
        <width>51</width>
        <height>17</height>
       </rect>
+     </property>
+     <property name="toolTip">
+      <string>single right scanmode</string>
      </property>
      <property name="text">
       <string>Right</string>
@@ -97,8 +103,14 @@
        <height>17</height>
       </rect>
      </property>
+     <property name="toolTip">
+      <string>dual scanmode</string>
+     </property>
      <property name="text">
       <string>Dual</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>
@@ -118,6 +130,9 @@
       <bold>false</bold>
       <kerning>true</kerning>
      </font>
+    </property>
+    <property name="toolTip">
+     <string>what´s up?</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -145,7 +160,7 @@
      </rect>
     </property>
     <property name="toolTip">
-     <string>Options Menue</string>
+     <string>options menue</string>
     </property>
     <property name="text">
      <string/>
@@ -177,7 +192,7 @@
    <widget class="QPushButton" name="camBox">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>110</x>
       <y>150</y>
       <width>36</width>
       <height>36</height>
@@ -249,14 +264,14 @@
    <widget class="QPushButton" name="rLaserBox">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>150</x>
       <y>150</y>
       <width>36</width>
       <height>36</height>
      </rect>
     </property>
     <property name="toolTip">
-     <string>right Laser toggle</string>
+     <string>switch right laser on/off</string>
     </property>
     <property name="text">
      <string/>
@@ -278,14 +293,14 @@
    <widget class="QPushButton" name="lLaserBox">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>70</x>
       <y>150</y>
       <width>36</width>
       <height>36</height>
      </rect>
     </property>
     <property name="toolTip">
-     <string>left Laser toggle</string>
+     <string>switch left laser on/off</string>
     </property>
     <property name="text">
      <string/>
@@ -438,6 +453,35 @@
     </property>
     <property name="checkable">
      <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="lightBox">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>150</y>
+      <width>36</width>
+      <height>36</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>switch light on/off</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources/resources.qrc">
+      <normaloff>:/glossy_2_48x48/png_2/48x48/Disaster.png</normaloff>:/glossy_2_48x48/png_2/48x48/Disaster.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

@@ -7,10 +7,11 @@ Created on Sat Mar 01 19:17:29 2014
 from PyQt4 import QtCore,QtGui,uic
 import smokesignal
 import globalsh
-
-dlg_class, base_class = uic.loadUiType("dlg.ui")
+import dlg_ui
+from dlg_ui import Ui_dlg
+#dlg_class, base_class = uic.loadUiType("dlg.ui")
             
-class dlgWidget (QtGui.QDialog, dlg_class):     #warnings dialog
+class dlgWidget (QtGui.QDialog, Ui_dlg):     #warnings dialog
     def __init__(self,parent=None,selected=[],flag=0,*args):
         QtGui.QDialog.__init__(self,parent,*args)
         self.setupUi(self)
@@ -33,7 +34,7 @@ def dlg_accept():
     if globalsh.dlg_issue == 'ser':
         print 'juouhou'
     if globalsh.dlg_issue == 'reg':
-        smokesignal.emit('write_def_reg')
+        smokesignal.emit('write_json')
         #reghandle.write_reg_default
         
 def dlg_reject():
@@ -43,6 +44,6 @@ def dlg_reject():
     if globalsh.dlg_issue == 'reg':
         #smokesignal.emit('write_def_reg')
         print 'exiting'
-        #smokesignal.emit('killme')
+        smokesignal.emit('killme')
     
     

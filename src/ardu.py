@@ -6,34 +6,37 @@ Created on Sat Feb 22 13:22:49 2014
 """
 import platform
 import serial
-from serial import Serial
+#from serial import serial
 import time
 import glob
 import dialog
 import smokesignal
 import globalsh
+from serial import *
             
-class serialh(serial.Serial):
+class serialh():
     def __init__(self):
         self.connected = False
-        serial.Serial.__init__(self)
+        #serial.Serial.__init__(self)
         self.list_serial_ports_p()
         time.sleep(0.5)
         self.port = ("COM" + str(globalsh.comport))
         if globalsh.autocnct == 2:
             self.connect_p()
+    def __del__(self):
+        print 'releasing serial port'
+        self.ser.close()
         
     def list_serial_ports_p(self):  #check wich serial ports are available
         self.system_name = platform.system()
         if self.system_name == "Windows":
-            # Scan for available ports.
             self.available_p = []
             for i in range(24):
                 try:
                     self.s = serial.Serial(i)
                     self.available_p.append(i+1)
                     self.s.close()
-                except serial.SerialException:
+                except SerialException:
                     pass
             globalsh.availble_p = self.available_p
         elif self.system_name == "Darwin":
@@ -49,7 +52,8 @@ class serialh(serial.Serial):
             print("port " + self.port + "  opened successfully")
             self.connected = True
             smokesignal.emit('btn_unlock')
-        except serial.SerialException:
+            smokesignal.emit('status', 'here we go!')
+        except SerialException:
             print ('the requested serial port ' + str(self.port) + ' could not be opened')
             globalsh.dlg_title = 'warning!'
             globalsh.dlg_txt = 'serial port ' + str(self.port) + ' could not be opened, the program will likely not work before you connect to a proper device'
@@ -57,15 +61,21 @@ class serialh(serial.Serial):
             #mygui.get_dialog()
             smokesignal.emit('dialog')
          
-    def step(self, n):      #do some steps
-        for i in range(n):
-            self.ser.write("F")
-            time.sleep(0.05)
+    def step(self, way, n):      #do n steps in $way way
+        if way == 'cw':
+            for i in range(n):
+                self.ser.write("F")
+                time.sleep(0.03)
+        elif way == 'cc':
+            for i in range(n):
+                self.ser.write("B")
+                time.sleep(0.03)
+            
             
     def onestep(self):      #do a single step
         for i in range(1):
             self.ser.write("F")
-            time.sleep(0.05)
+            time.sleep(0.03)
             
     def turn(self):         #send the comand for 2 full spins
         self.ser.write("T")
@@ -84,6 +94,12 @@ class serialh(serial.Serial):
                 self.ser.write("r")
     def setlLaser(self):
         self.ser.write("L")
+        
+    def light(self, state):
+        if state == 1:
+            self.ser.write("W")
+        else:
+            self.ser.write("w")
                 
 
 meiserial = serialh()
