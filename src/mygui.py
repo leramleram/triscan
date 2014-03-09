@@ -17,13 +17,24 @@ import main_ui
 from main_ui import Ui_Form
 import opt_ui
 from opt_ui import Ui_optwndw
-
+import about_ui
+from about_ui import Ui_about
 #import reghandle
 
 #form_class, base_class = uic.loadUiType("main.ui")
 #opt_class, base_class = uic.loadUiType("opt.ui")
 
-class MyWidget (QtGui.QWidget, Ui_Form):         #Main window class
+class aboutWidget (QtGui.QDialog, Ui_about):                                                            #Main window class
+    def __init__(self,parent=None,selected=[],flag=0,*args):
+        QtGui.QDialog.__init__(self,parent,*args)
+        self.setupUi(self)
+        self.connect(self.buttonBox, QtCore.SIGNAL('accepted()'), self.close)
+    def __del__(self):
+        print 'killing about_ui'
+    def getabout(self):
+        self.show()
+
+class MyWidget (QtGui.QWidget, Ui_Form):                                                            #Main window class
     def __init__(self,parent=None,selected=[],flag=0,*args):
         QtGui.QWidget.__init__(self,parent,*args)
         self.setupUi(self)
@@ -46,7 +57,7 @@ class MyWidget (QtGui.QWidget, Ui_Form):         #Main window class
             self.camBox.setChecked(False)
         
             
-class optWidget (QtGui.QWidget, Ui_optwndw):     #options window class
+class optWidget (QtGui.QWidget, Ui_optwndw):                                                        #options window class
     def __init__(self,parent=None,selected=[],flag=0,*args):
         QtGui.QWidget.__init__(self,parent,*args)
         self.setupUi(self)
@@ -77,7 +88,7 @@ class optWidget (QtGui.QWidget, Ui_optwndw):     #options window class
         self.pixbright_lbl.setText(str(globalsh.minpixbright))
         self.cambright_sdr.setValue(int(globalsh.cambright))
         self.cambright_lbl.setText(str(globalsh.cambright))
-        self.exposure_sdr.setValue(int(globalsh.camexpo))
+        self.exposure_sdr.setValue(int(globalsh.camexpo *-1))
         self.exposure_lbl.setText(str(globalsh.camexpo))
         self.steps_lbl.setText(str(globalsh.steptotake))
         self.delay_lbl.setText(str(globalsh.stepdelay))
@@ -118,7 +129,7 @@ class optWidget (QtGui.QWidget, Ui_optwndw):     #options window class
         smokesignal.emit('setcambright', globalsh.cambright)
         self.cambright_lbl.setText(str(globalsh.cambright))
     def set_camexpo(self):
-        globalsh.camexpo = self.exposure_sdr.value()
+        globalsh.camexpo = self.exposure_sdr.value() * -1
         smokesignal.emit('setcamexpo', globalsh.camexpo)
         self.exposure_lbl.setText(str(globalsh.camexpo))
     def setautocnct(self):

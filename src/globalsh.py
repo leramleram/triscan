@@ -71,7 +71,7 @@ global camexpo
 camwidth = 800
 camheight = 600
 cambright = 195
-camexpo = 50
+camexpo = -2
 
 global l_angle
 global r_angle

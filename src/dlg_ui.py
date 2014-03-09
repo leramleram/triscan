@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Users\christian\Documents\GitHub\triscan\src\dlg.ui'
 #
-# Created: Fri Mar 07 20:25:09 2014
+# Created: Sun Mar 09 14:52:04 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!

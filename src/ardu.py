@@ -27,7 +27,7 @@ class serialh():
         print 'releasing serial port'
         self.ser.close()
         
-    def list_serial_ports_p(self):  #check wich serial ports are available
+    def list_serial_ports_p(self):                                                                  #check wich serial ports are available
         self.system_name = platform.system()
         if self.system_name == "Windows":
             self.available_p = []
@@ -40,13 +40,13 @@ class serialh():
                     pass
             globalsh.availble_p = self.available_p
         elif self.system_name == "Darwin":
-            # Mac
+                                                                                                    # Mac
             return glob.glob('/dev/tty*') + glob.glob('/dev/cu*')
         else:
-            # Assume Linux or something else
+                                                                                                    # Assume Linux or something else
             return glob.glob('/dev/ttyS*') + glob.glob('/dev/ttyUSB*')
         
-    def connect_p(self):    #nomen est omen
+    def connect_p(self):                                                                            #nomen est omen
         try:
             self.ser = serial.Serial(str(self.port),baudrate=globalsh.baudrate)
             print("port " + self.port + "  opened successfully")
@@ -61,7 +61,7 @@ class serialh():
             #mygui.get_dialog()
             smokesignal.emit('dialog')
          
-    def step(self, way, n):      #do n steps in $way way
+    def step(self, way, n):                                                                         #do n steps in $way way
         if way == 'cw':
             for i in range(n):
                 self.ser.write("F")
@@ -72,16 +72,16 @@ class serialh():
                 time.sleep(0.03)
             
             
-    def onestep(self):      #do a single step
+    def onestep(self):                                                                              #do a single step
         for i in range(1):
             self.ser.write("F")
             time.sleep(0.03)
             
-    def turn(self):         #send the comand for 2 full spins
+    def turn(self):                                                                                 #send the comand for 2 full spins
         self.ser.write("T")
         time.sleep(0.05)
         
-    def laser(self, n, v):  #toggle the lasers
+    def laser(self, n, v):                                                                          #toggle the lasers
         if n == 0:
             if v == 1:
                 self.ser.write("L")

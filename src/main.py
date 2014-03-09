@@ -15,33 +15,34 @@ def runprogram():
     from ardu import meiserial
     import capture
     import scan
-    from mygui import MyWidget, optWidget
+    from mygui import MyWidget, optWidget, aboutWidget
     import numpy
     import serial
+    import globalsh
     
     form = MyWidget(None)
     opt = optWidget(None)
-    
+    about = aboutWidget(None)
     form.execButton.setEnabled(False)
     
     @smokesignal.on('killme')
-    def killme():   #close the program
+    def killme():                                                                                   #close the program
         opt.close()
         form.close()
     @smokesignal.on('progress')
-    def setbar(value):  #update progress bar
+    def setbar(value):                                                                              #update progress bar
         form.progress(value)
     @smokesignal.on('lcd')
-    def setlcd(value):      #update the numberLCD
+    def setlcd(value):                                                                              #update the numberLCD
         form.set_deg_lcd(value)
     @smokesignal.on('status')
-    def setstatus(string):  #update the statusmessage
+    def setstatus(string):                                                                          #update the statusmessage
         form.status_lbl.setText(string)
     @smokesignal.on('scanbtnstate')
-    def setscanbtnstate(state): #update the scanbuttonstate
+    def setscanbtnstate(state):                                                                     #update the scanbuttonstate
         form.scanButton.setChecked(state)
     @smokesignal.on('btn_lock')
-    def disable_btn():  #lock all buttons while scanning
+    def disable_btn():                                                                              #lock all buttons while scanning
         opt.close()
         form.turnButton.setEnabled(False) 
         form.stepButton.setEnabled(False) 
@@ -53,7 +54,7 @@ def runprogram():
         form.dual_rd_btn.setEnabled(False)
         form.lightBox.setEnabled(False)
     @smokesignal.on('btn_unlock')
-    def enable_btn():   #unlock the buttons
+    def enable_btn():                                                                               #unlock the buttons
         form.turnButton.setEnabled(True) 
         form.stepButton.setEnabled(True) 
         #form.toolButton.setEnabled(True)
@@ -85,11 +86,14 @@ def runprogram():
     opt.connect(opt.saveButton, QtCore.SIGNAL('clicked()'), cfg_storage.write_file)
     opt.connect(opt.connectBtn, QtCore.SIGNAL('clicked()'), meiserial.connect_p)
     opt.connect(opt.connectBox, QtCore.SIGNAL('clicked()'), opt.setautocnct)
+    opt.connect(opt.aboutButton, QtCore.SIGNAL('clicked()'), about.getabout)
        
-    form.show()     #main window
+    form.show()                                                                                     #show the main window
     form.move(20,20)
     form.show()
     form.progress(0)
+    print globalsh.camexpo
+    smokesignal.emit('setcamexpo', globalsh.camexpo)
     if meiserial.connected == False:
         disable_btn()
         form.scanButton.setEnabled(False)

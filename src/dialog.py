@@ -11,7 +11,7 @@ import dlg_ui
 from dlg_ui import Ui_dlg
 #dlg_class, base_class = uic.loadUiType("dlg.ui")
             
-class dlgWidget (QtGui.QDialog, Ui_dlg):     #warnings dialog
+class dlgWidget (QtGui.QDialog, Ui_dlg):                                                            #warnings dialog
     def __init__(self,parent=None,selected=[],flag=0,*args):
         QtGui.QDialog.__init__(self,parent,*args)
         self.setupUi(self)
@@ -23,7 +23,7 @@ class dlgWidget (QtGui.QDialog, Ui_dlg):     #warnings dialog
 dlg = dlgWidget(None)
 
 @smokesignal.on('dialog')
-def get_dialog():   #call the warnings dialog
+def get_dialog():                                                                                   #call the warnings dialog
     dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('accepted()'), dlg_accept)
     dlg.connect(dlg.btnBox_dlg, QtCore.SIGNAL('rejected()'), dlg_reject)
     dlg.setWindowTitle(globalsh.dlg_title)
