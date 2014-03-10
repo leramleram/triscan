@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\christian\Documents\GitHub\triscan\src\about.ui'
+# Form implementation generated from reading ui file 'C:\Users\christian\Documents\GitHub\triscan\gui\about.ui'
 #
-# Created: Sun Mar 09 14:54:44 2014
+# Created: Mon Mar 10 21:26:59 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!

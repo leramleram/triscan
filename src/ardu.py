@@ -9,7 +9,6 @@ import serial
 #from serial import serial
 import time
 import glob
-import dialog
 import smokesignal
 import globalsh
 from serial import *

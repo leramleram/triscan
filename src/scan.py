@@ -37,7 +37,7 @@ def doscan(mode):   #init the scan
     if globalsh.scan_active == False:
         meiserial.laser(1,0)
         meiserial.laser(2,0)
-        cap.set(15, globalsh.camexpo)
+        smokesignal.emit('setcamexpo', globalsh.camexpo)
         globalsh.scan_active = True
         scandir = os.path.dirname(scan_dir)
         try:

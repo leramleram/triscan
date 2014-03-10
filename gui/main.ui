@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>300</width>
+    <height>250</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Δ▲Δ Triscan</string>
+  </property>
+  <property name="toolTip">
+   <string>options</string>
+  </property>
+  <widget class="QFrame" name="frame_6">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>280</width>
+     <height>230</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QLabel" name="status_lbl">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>55</y>
+      <width>186</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>what´s up?</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="text">
+     <string>ready for rumble!</string>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="toolButton">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>95</y>
+      <width>36</width>
+      <height>36</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>options menue</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources/resources.qrc">
+      <normaloff>:/48x48/png/48x48/System.png</normaloff>:/48x48/png/48x48/System.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>200</y>
+      <width>266</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="camBox">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>95</y>
+      <width>36</width>
+      <height>36</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Webcam toggle</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources/resources.qrc">
+      <normaloff>:/woofunction/woofunction-icons/camera_32.png</normaloff>:/woofunction/woofunction-icons/camera_32.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="deg_lcd">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>55</y>
+      <width>61</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>degrees</string>
+    </property>
+    <property name="smallDecimalPoint">
+     <bool>false</bool>
+    </property>
+    <property name="segmentStyle">
+     <enum>QLCDNumber::Flat</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>265</x>
+      <y>55</y>
+      <width>16</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>°</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="rLaserBox">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>95</y>
+      <width>36</width>
+      <height>36</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>switch right laser on/off</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources/resources.qrc">
+      <normaloff>:/woofunction/woofunction-icons/arrow_right_32.png</normaloff>:/woofunction/woofunction-icons/arrow_right_32.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="lLaserBox">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>95</y>
+      <width>36</width>
+      <height>36</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>switch left laser on/off</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources/resources.qrc">
+      <normaloff>:/woofunction/woofunction-icons/arrow_left_32.png</normaloff>:/woofunction/woofunction-icons/arrow_left_32.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_7">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>281</width>
+      <height>46</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QCommandLinkButton" name="scanButton">
+     <property name="geometry">
+      <rect>
+       <x>185</x>
+       <y>2</y>
+       <width>96</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>start/stop the scan</string>
+     </property>
+     <property name="text">
+      <string>Scan</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/glossy_2_48x48/png_2/48x48/Steering wheel.png</normaloff>
+       <activeon>:/48x48/png/48x48/Stop.png</activeon>:/glossy_2_48x48/png_2/48x48/Steering wheel.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+     <property name="autoRepeatDelay">
+      <number>3000</number>
+     </property>
+     <property name="autoDefault">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QCommandLinkButton" name="stepButton">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>2</y>
+       <width>91</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>one step move</string>
+     </property>
+     <property name="text">
+      <string>Step</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/48x48/png/48x48/Forward.png</normaloff>:/48x48/png/48x48/Forward.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QCommandLinkButton" name="turnButton">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>2</y>
+       <width>96</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>turn the table</string>
+     </property>
+     <property name="text">
+      <string>Turn</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../resources/resources.qrc">
+       <normaloff>:/48x48/png/48x48/Repeat.png</normaloff>:/48x48/png/48x48/Repeat.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="execButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>95</y>
+      <width>36</width>
+      <height>36</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>open the last scan file in the standard program for this filetype</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources/resources.qrc">
+      <normaloff>:/woofunction/woofunction-icons/search_chart_32.png</normaloff>:/woofunction/woofunction-icons/search_chart_32.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="lightBox">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>95</y>
+      <width>36</width>
+      <height>36</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>switch light on/off</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="../resources/resources.qrc">
+      <normaloff>:/woofunction/woofunction-icons/lightbulb_off_32.png</normaloff>
+      <normalon>:/woofunction/woofunction-icons/lightbulb_32.png</normalon>:/woofunction/woofunction-icons/lightbulb_off_32.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>140</y>
+      <width>171</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="scnmdlbl">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>30</y>
+       <width>61</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Scanmode</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="lft_rd_btn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>51</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>single left scanmode</string>
+     </property>
+     <property name="text">
+      <string>Left</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="rgt_rd_btn">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>10</y>
+       <width>51</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>single right scanmode</string>
+     </property>
+     <property name="text">
+      <string>Right</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dual_rd_btn">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>10</y>
+       <width>51</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>dual scanmode</string>
+     </property>
+     <property name="text">
+      <string>Dual</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../resources/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

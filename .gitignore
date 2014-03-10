@@ -28,7 +28,7 @@
 #############
 *.json
 *.bat
-*.exe
+#*.exe
 *.dll
 *.toc
 *.pyz

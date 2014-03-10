@@ -29,16 +29,12 @@ def refresh(state):                                                             
         cap.open(0)
         ret, feed = cap.read()
         cv2.imshow("webcam", feed)
-        ret, feed = cap.read()
-        cv2.imshow("webcam", feed)
+        cap.set(3, globalsh.camwidth)
+        cap.set(4, globalsh.camheight)
         ret, feed = cap.read()
         cv2.imshow("webcam", feed)
         smokesignal.emit('setcamexpo', globalsh.camexpo)
         camstate = state
-        cap.set(3, globalsh.camwidth)
-        cap.set(4, globalsh.camheight)
-        
-
         smokesignal.emit('setborders')
         if camstate == 0:
             cv2.destroyAllWindows()
